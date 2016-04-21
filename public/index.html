@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>DCU Web Server</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+	</head>
+	<body>
+		<!-- Content -->
+			<div id="content">
+				<div class="inner">
+					<!-- Post -->
+						<article class="box post post-excerpt">
+							<header>
+								<h3>PRIME topology</h3>
+							</header>
+							<div class="info"></div>
+							<div id="nodelist"></div>
+							<div class="pagination">
+								<a href="#" class="button next">Reload Topology</a>
+							</div>
+							<script type="text/javascript">							
+								if (window.XMLHttpRequest) {
+									// Objeto para IE7+, Firefox, Chrome, Opera, Safari
+									xmlhttp = new XMLHttpRequest();
+								} else {
+									// Objeto para IE6, IE5
+									xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+								}
+								<!-- var Connect = new XMLHttpRequest(); -->
+								xmlhttp.open("GET", "nodelist.xml", false);
+								xmlhttp.send();
+
+								var NodeList = xmlhttp.responseXML;
+								var Nodes = NodeList.childNodes[0];
+
+								lista = "<table><tr><td>MAC Address</td><td>LNID</td><td>State</td><td>LSID</td><td>SID</td><td>Level</td></tr>";	
+
+								for (var i = 0; i < Nodes.children.length; i++) {
+									var Node = Nodes.children[i];
+									// Access each of the data values.
+									var Mac = Node.getElementsByTagName("mac");
+									var Lnid = Node.getElementsByTagName("lnid");
+									var State = Node.getElementsByTagName("state");
+									var Lsid = Node.getElementsByTagName("lsid");
+									var Sid = Node.getElementsByTagName("sid");
+									var Level = Node.getElementsByTagName("level");
+
+									// Write the data to the page.
+									lista += "<tr><td>" + Mac[0].textContent.toString() + "</td><td>" + Lnid[0].textContent.toString() +
+											 "</td><td>" + State[0].textContent.toString() + "</td><td>" + Lsid[0].textContent.toString() +
+											 "</td><td>" + Sid[0].textContent.toString() + "</td><td>" + Level[0].textContent.toString() + "</td></tr>";
+								}
+								lista += "</table>";
+								document.getElementById("nodelist").innerHTML = lista;
+							</script>
+						</article>
+				</div>
+			</div>
+
+		<!-- Sidebar -->
+			<div id="sidebar">
+
+				<!-- Logo -->
+					<h1 id="logo"><a href="#">Widelen</a></h1>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul>
+							<li class="current"><a href="#">PRIME</a></li>
+							<li><a href="#">Configuration</a></li>
+							<li><a href="#">Statistics</a></li>
+							<li><a href="#">Operation</a></li>
+						</ul>
+					</nav>
+
+				<!-- Text -->
+					<section class="box text-style1">
+						<div class="inner">
+							<ul>
+							<li id="dcu_id">DCU ID : <br>XXXXXXXXXXXX</li>
+							<li id="dcu_sn">DCU Serial Number : <br>XXXXXXXXX</li>
+							<li id="dcu_ti">DCU Time : <br>4330575</li>
+							<li id="dcu_vs">DCU SW Version : <br>XX.XX.XX.XX</li>
+							</ul>
+							<script type="text/javascript">
+								var fecha = new Date();
+								var mm_name = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Ago", "Oct", "Nov", "Dec"];
+								
+								document.getElementById("dcu_id").innerHTML = "DCU ID : <br>XXXXXXXXXXXX";
+								document.getElementById("dcu_sn").innerHTML = "DCU Serial Number : <br>XXXXXXXXX";
+								document.getElementById("dcu_ti").innerHTML = "DCU Time : <br>" + fecha.getFullYear() + "/" + mm_name[fecha.getMonth() + 1] + "/" + fecha.getDate();
+								document.getElementById("dcu_vs").innerHTML = "DCU SW Version : <br>XX.XX.XX.XX";
+							</script>
+						</div>
+					</section>
+
+				<!-- Copyright -->
+					<ul id="copyright">
+						<li>&copy; Untitled.</li><li>Design: Widelen S.L.</a></li>
+					</ul>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
