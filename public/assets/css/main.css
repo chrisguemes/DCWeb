@@ -1635,32 +1635,37 @@
 /* Table */
 
 	table {
+		border-collapse: separate !important;
 		margin-bottom: 1em;
 		width: 100%;
+		border:2px #364050 solid;
+		border-radius:5px;
+	}
+	
+	table td {
+	 padding:6px;
+	}
+	
+	table tr:nth-child(1) {
+		/*background-color: #364050;
+		font-weight: bold;
+		color:#fff;
+		border-bottom:1px #000 solid;*/
+		
+		background-color: #364050 !important;
+		background-color: rgba(0, 0, 0, 0.15) !important;
+		box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05), inset 0 0 0.25em 0 rgba(0, 0, 0, 0.25);
+		font-weight: 700;
+		color: #232323;
 	}
 
-		table.default tbody tr:nth-child(2n+2) {
-			background: #f4f4f4;
-		}
-
-		table.default td {
-			padding: 0.5em 1em 0.5em 1em;
-		}
-
-		table.default th {
-			text-align: left;
-			font-weight: 700;
-			padding: 0.75em 1em 0.75em 1em;
-		}
-
-		table.default thead {
-			border-bottom: solid 1px #ddd;
-		}
-
-		table.default tfoot {
-			border-top: solid 1px #ddd;
-			background: #eee;
-		}
+	table.header tr:not(:first-child):hover, table:not(.header) tr:hover {
+		background:#E0FFFF;
+	}
+	
+	table.header tr:nth-child(n+2) {
+	 text-align: right;
+	}
 
 /* Form */
 

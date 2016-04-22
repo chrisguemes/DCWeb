@@ -17,8 +17,8 @@
 							<header>
 								<h3>PRIME topology</h3>
 							</header>
-							<div class="info"></div>
-							<div id="nodelist"></div>
+							<div class="info" id="nodenum"></div>
+							<table id="nodetable"></table>
 							<div class="pagination">
 								<a href="#" class="button next">Reload Topology</a>
 							</div>
@@ -37,7 +37,8 @@
 								var NodeList = xmlhttp.responseXML;
 								var Nodes = NodeList.childNodes[0];
 
-								lista = "<table><tr><td>MAC Address</td><td>LNID</td><td>State</td><td>LSID</td><td>SID</td><td>Level</td></tr>";	
+								<!-- lista = "<table><tr><td>MAC Address</td><td>LNID</td><td>State</td><td>LSID</td><td>SID</td><td>Level</td></tr>"; -->
+								lista = "<tr><td>MAC Address</td><td>LNID</td><td>State</td><td>LSID</td><td>SID</td><td>Level</td></tr>";	
 
 								for (var i = 0; i < Nodes.children.length; i++) {
 									var Node = Nodes.children[i];
@@ -54,8 +55,9 @@
 											 "</td><td>" + State[0].textContent.toString() + "</td><td>" + Lsid[0].textContent.toString() +
 											 "</td><td>" + Sid[0].textContent.toString() + "</td><td>" + Level[0].textContent.toString() + "</td></tr>";
 								}
-								lista += "</table>";
-								document.getElementById("nodelist").innerHTML = lista;
+								<!-- lista += "</table>"; -->
+								document.getElementById("nodetable").innerHTML = lista;
+								document.getElementById("nodenum").innerHTML = Nodes.children.length + " nodes";
 							</script>
 						</article>
 				</div>
