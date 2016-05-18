@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <nodelist>
 	<node>
-		<mac>014090870013</mac>
-		<lnid>2281</lnid>
+		<mac>013090320104</mac>
+		<lnid>12001</lnid>
 		<state>1</state>
 		<lsid>255</lsid>
 		<sid>0</sid>
 		<level>0</level>
 	</node>
 	<node>
-		<mac>013090320105</mac>
-		<lnid>2282</lnid>
+		<mac>d48faa0bf4e4</mac>
+		<lnid>12002</lnid>
 		<state>1</state>
 		<lsid>255</lsid>
 		<sid>0</sid>

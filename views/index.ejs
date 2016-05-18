@@ -1,11 +1,16 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
-</html>
+<div id="content">
+	<div class="inner">
+		<!-- Post -->
+			<article class="box post post-excerpt">
+				<header>
+					<h3><%= title %></h3>
+				</header>
+				<div class="info" id="nodenum"></div>
+				<table id="nodetable"></table>
+				<div class="pagination">
+					<a href="/update" class="button next">Reload Topology</a>
+					<!-- <input type="button" value="Reload Topology" class="button next" onclick="reload_topology();"/> -->
+				</div>
+			</article>
+	</div>
+</div>
