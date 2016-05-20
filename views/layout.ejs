@@ -33,8 +33,7 @@
 				var NodeList = xmlhttp.responseXML;
 				var Nodes = NodeList.childNodes[0];
 
-				<!-- lista = "<table><tr><td>MAC Address</td><td>LNID</td><td>State</td><td>LSID</td><td>SID</td><td>Level</td></tr>"; -->
-				lista = "<tr><td>MAC Address</td><td>LNID</td><td>State</td><td>LSID</td><td>SID</td><td>Level</td></tr>";	
+				lista = "<tr><td>MAC Address</td><td>LNID</td><td>State</td><td>LSID</td><td>SID</td><td>Level</td><td>Version</td></tr>";	
 
 				for (var i = 0; i < Nodes.children.length; i++) {
 					var Node = Nodes.children[i];
@@ -45,11 +44,16 @@
 					var Lsid = Node.getElementsByTagName("lsid");
 					var Sid = Node.getElementsByTagName("sid");
 					var Level = Node.getElementsByTagName("level");
+					var Vendor = Node.getElementsByTagName("vendor");
+					var Model = Node.getElementsByTagName("model");
+					var Fwvs = Node.getElementsByTagName("fwvs");
+					
+					var Version = Vendor[0].textContent.toString() + " : " + Model[0].textContent.toString() + " : " + Fwvs[0].textContent.toString();
 
 					// Write the data to the page.
 					lista += "<tr><td>" + Mac[0].textContent.toString() + "</td><td>" + Lnid[0].textContent.toString() +
 							 "</td><td>" + State[0].textContent.toString() + "</td><td>" + Lsid[0].textContent.toString() +
-							 "</td><td>" + Sid[0].textContent.toString() + "</td><td>" + Level[0].textContent.toString() + "</td></tr>";
+							 "</td><td>" + Sid[0].textContent.toString() + "</td><td>" + Level[0].textContent.toString() + "</td><td>" + Version + "</td></tr>";
 				}
 				<!-- lista += "</table>"; -->
 				document.getElementById("nodetable").innerHTML = lista;

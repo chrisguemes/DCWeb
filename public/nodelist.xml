@@ -7,6 +7,9 @@
 		<lsid>255</lsid>
 		<sid>0</sid>
 		<level>0</level>
+		<vendor></vendor>
+		<model></model>
+		<fwvs></fwvs>
 	</node>
 	<node>
 		<mac>d48faa0bf4e4</mac>
@@ -15,5 +18,19 @@
 		<lsid>255</lsid>
 		<sid>0</sid>
 		<level>0</level>
+		<vendor></vendor>
+		<model></model>
+		<fwvs></fwvs>
+	</node>
+	<node>
+		<mac>d48faa0bf4e3</mac>
+		<lnid>12003</lnid>
+		<state>1</state>
+		<lsid>255</lsid>
+		<sid>0</sid>
+		<level>0</level>
+		<vendor></vendor>
+		<model></model>
+		<fwvs></fwvs>
 	</node>
 </nodelist>

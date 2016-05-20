@@ -8,22 +8,24 @@ router.get('/', function(req, res) {
 	res.render('index', { title: 'PRIME topology' });
 });
 
-router.get('/update', function(req, res) {
+router.get('/updT', function(req, res) {
 	// Escribir una línea de comando en un fichero de texto
 	fs.writeFile('public/message.txt', '0', function (err) {
         if (err) throw err;
         //console.log('It\'s saved! in same location.');
     });
 	// Renderizar la misma vista de index
-	res.render('index', { title: 'PRIME topology updated' });
+	res.render('index', { title: 'PRIME topology' });
 });
 
-router.get('/autor', function(req, res) {
-  res.render('autor');
-});
-
-router.get('/search', function(req, res) {
-  res.render('search');
+router.get('/updV', function(req, res) {
+	// Escribir una línea de comando en un fichero de texto
+	fs.writeFile('public/message.txt', '1', function (err) {
+        if (err) throw err;
+        //console.log('It\'s saved! in same location.');
+    });
+	// Renderizar la misma vista de index
+	res.render('index', { title: 'PRIME topology' });
 });
 
 //// Autoload de comandos con quizId
