@@ -10,12 +10,9 @@
 		<script type="text/javascript" src="jquery-2.1.4.min.js" > </script>
 		<script type="text/javascript">
 			$(function(){ 
-				// Define evento periodico, ocurre cada segundo (1000 miliseg)
-				setInterval(refresh_page, 1000); 
-
-				refresh_page();
-				
 				refresh_prime_info();
+				setInterval(refresh_page, 1000);
+				refresh_page();
 			});
 			
 			function refresh_page() {
