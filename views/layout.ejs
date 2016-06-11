@@ -8,10 +8,13 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<script type="text/javascript" src="jquery-2.1.4.min.js" > </script>
+		<!-- <script src="http://10.140.228.17/socket.io/socket.io.js"></script> -->
+		<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+		<script src="wscli.js"></script>
 		<script type="text/javascript">
 			$(function(){ 
 				refresh_prime_info();
-				setInterval(refresh_page, 1000);
+				<!-- setInterval(refresh_page, 1000); -->
 				refresh_page();
 			});
 			
@@ -96,6 +99,16 @@
 	<body>
 		<!-- Content -->
 			<%- body %>
+		
+		<!-- WebSockets -->
+		<h1>My Websocket</h1>                                                  
+		<div id="messages"></div>                                              
+		<br/>                                                                  
+		<form onsubmit="return addMessage(this)">                              
+			<input type="text" id="user" placeholder="SRV or CLI" >            
+			<input type="text" id="command" placeholder="put your command..."> 
+			<input type="submit" value="Send CMD">                             
+		</form>                                                                
 
 		<!-- Sidebar -->
 			<div id="sidebar">

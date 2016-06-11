@@ -1,6 +1,5 @@
 var express = require('express');
 var fs = require('fs');
-//var quizController = require('../controllers/quiz_controller');
 var router = express.Router();
 
 // GET home page
