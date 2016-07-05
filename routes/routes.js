@@ -27,6 +27,13 @@ router.get('/updV', function(req, res) {
 	res.render('index', { title: 'PRIME topology' });
 });
 
+router.get('/cmd', function(req, res) {
+	console.log('Comando Recibido...');
+	res.write('Enviando Respuesta.');
+});
+
+
+
 //// Autoload de comandos con quizId
 //router.param('quizId', quizController.load);
 //
