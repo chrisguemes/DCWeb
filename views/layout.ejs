@@ -108,6 +108,11 @@
 			<input type="text" id="user" placeholder="SRV or CLI" >            
 			<input type="text" id="command" placeholder="put your command..."> 
 			<input type="submit" value="Send CMD">                             
+		</form>                                                                      
+		<form onsubmit="return sendPLCMsg(this)">                              
+			<input type="text" id="NodeUser" placeholder="PLC or NODE" >            
+			<input type="text" id="NodeCmd" placeholder="put your command..."> 
+			<input type="submit" value="Send PLC CMD">                             
 		</form>                                                                
 
 		<!-- Sidebar -->

@@ -29,7 +29,9 @@ router.get('/updV', function(req, res) {
 
 router.get('/cmd', function(req, res) {
 	console.log('Comando Recibido...');
+	res.writeHead(200, {'Content-Type': 'text/plain'});
 	res.write('Enviando Respuesta.');
+    res.end('Whatever you wish to send \n');
 });
 
 

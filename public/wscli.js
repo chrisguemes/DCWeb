@@ -35,3 +35,15 @@ function addMessage(e) {
   socket.emit('new-cmd', message);
   return false;
 }
+
+function sendPLCMsg(e) {  
+  var message = {
+    user: document.getElementById('NodeUser').value,
+    cmd: document.getElementById('NodeCmd').value
+  };
+
+  console.log('Sending message to PLC...');
+  console.log(message);
+  socket.emit('new-plc-cmd', message);
+  return false;
+}

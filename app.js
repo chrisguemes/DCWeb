@@ -26,6 +26,8 @@ app.use('/', routes);
 // WebSockets ---------------------------------------------
 var server = require('http').Server(app);  
 var io = require('socket.io')(server);
+// Linux Sockets
+var unirest = require('unirest');
 
 var cmds = [{  
   id: 1,
@@ -34,14 +36,32 @@ var cmds = [{
 }];
 
 io.on('connection', function(socket) {  
-  console.log('Alguien se ha conectado con Sockets');
-  socket.emit('welcome', cmds);
+	console.log('Alguien se ha conectado con Sockets');
+	socket.emit('welcome', cmds);
 
-  socket.on('new-cmd', function(data) {
-    cmds.push(data);
+	socket.on('new-cmd', function(data) {
+		console.log('New-cmd received...');
+		cmds.push(data);
+		io.sockets.emit('render', cmds);
+	});
 
-    io.sockets.emit('render', cmds);
-  });
+	socket.on('new-plc-cmd', function(data) {
+		console.log('New-plc-cmd received... sending to PLC');
+		console.log(data);
+		unirest.post('http://127.0.0.1:9060')
+		.headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+		.send({ "user": "NODE", "cmd": "CMD1" })
+		.end(function (response) {
+			console.log(response.body);
+		});
+
+		/*unirest.post('http://127.0.0.1:9060')
+		.header('Accept', 'application/json')
+		.send({ "Hello": "World!" })
+		.end(function (response) {
+			console.log(response.body);
+		});*/
+	});
 });
 
 // ERRORS -------------------------------------------------
@@ -56,10 +76,11 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
-        res.render('error', {
+		console.log(err);
+        /*res.render('error', {
             message: err.message,
             error: err
-        });
+        });*/
     });
 }
 
@@ -67,10 +88,11 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
+	console.log(err);
+    /*res.render('error', {
         message: err.message,
         error: {}
-    });
+    });*/
 });
 
 server.listen(3000, function() {  
