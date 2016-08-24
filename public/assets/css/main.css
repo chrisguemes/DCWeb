@@ -2308,6 +2308,17 @@
 			display: block;
 		}
 
+/* D3 JSON Nodes */
+.nodes {
+	stroke: #fff;
+	stroke-width: 1.5px;
+}
+
+.links {
+	stroke: #999;
+	stroke-opacity: .6;
+}
+
 /* Desktop */
 
 	@media screen and (min-width: 737px) {
