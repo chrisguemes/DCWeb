@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>G3</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<script type="text/javascript" src="jquery-2.1.4.min.js" > </script>
+		<script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			var simulation
+			
+			$(function(){ 
+				// Define evento periodico, ocurre cada segundo (1000 miliseg)
+				//setInterval(refresh_page, 1000); 
+
+				// muestra fecha al cargar
+				refresh_page();
+			});
+			
+			function refresh_page() {
+				var svg = d3.select("svg"),
+					width = +svg.attr("width"),
+					height = +svg.attr("height");
+					
+				var color = d3.scaleOrdinal(d3.schemeCategory20);
+				
+				simulation = d3.forceSimulation()
+					.force("link", d3.forceLink().id(function(d) { return d.u16Addr; }))
+					.force("charge", d3.forceManyBody())
+					.force("center", d3.forceCenter(width / 2, height / 2));
+
+				d3.json("example5.json", function(error, graph) {
+				  if (error) throw error;
+
+				  var link = svg.append("g")
+					.attr("class", "links")
+					.selectAll("line")
+					.data(graph.links)
+					.enter().append("line")
+					.attr("stroke-width", function(d) { return d.value; });
+
+				  var node = svg.append("g")
+					.attr("class", "nodes")
+					.selectAll("circle")
+					.data(graph.nodes)
+					.enter().append("circle")
+					.attr("r", 6)
+					.attr("fill", function(d) { return color(d.hops); })
+					.call(d3.drag()
+						.on("start", dragstarted)
+						.on("drag", dragged)
+						.on("end", dragended));
+
+				  node.append("title").text(function(d) { return d.u64Addr + " [" + d.u16Addr + "]"; });
+
+				  simulation.nodes(graph.nodes).on("tick", ticked);
+					
+				  simulation.force("link").links(graph.links);
+					
+				  function ticked() {
+					link
+						.attr("x1", function(d) { return d.source.x; })
+						.attr("y1", function(d) { return d.source.y; })
+						.attr("x2", function(d) { return d.target.x; })
+						.attr("y2", function(d) { return d.target.y; });
+
+					node
+						.attr("cx", function(d) { return d.x; })
+						.attr("cy", function(d) { return d.y; });
+					}
+					
+				});
+			};
+			
+			function dragstarted(d) {
+				if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+				d.fx = d.x;
+				d.fy = d.y;
+			}
+
+			function dragged(d) {
+				d.fx = d3.event.x;
+				d.fy = d3.event.y;
+			}
+
+			function dragended(d) {
+				if (!d3.event.active) simulation.alphaTarget(0);
+				d.fx = null;
+				d.fy = null;
+			}
+			
+			function reload_topology() {
+				refresh_page();
+			};
+</script>
+	</head>
+	<body>
+		<!-- Content -->
+			<div id="content">
+				<div class="inner">
+					<!-- Post -->
+						<article class="box post post-excerpt">
+							<header>
+								<h3>G3 Network</h3>
+							</header>
+							<div class="info" id="nodenum"></div>
+							<svg width="960" height="500"></svg>
+							<div class="pagination">
+								<input type="button" value="Update Network" class="button next" onclick="reload_topology();"/>
+							</div>
+						</article>
+				</div>
+			</div>
+
+		
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

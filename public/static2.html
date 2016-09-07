@@ -1,0 +1,143 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>DCU Web Server</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<script type="text/javascript" src="jquery-2.1.4.min.js" > </script>
+		<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function(){ 
+				// Define evento periodico, ocurre cada segundo (1000 miliseg)
+				//setInterval(refresh_page, 1000); 
+
+				// muestra fecha al cargar
+				refresh_page();
+			});
+			
+			function refresh_page() {
+				var svg = d3.select("svg"),
+					width = +svg.attr("width"),
+					height = +svg.attr("height");
+				var color = d3.scale.category20();
+				var force = d3.layout.force()
+					.charge(-30)
+					.linkDistance(50)
+					.size([width, height]);
+
+				d3.json("example2.json", function(error, graph) {
+				  if (error) throw error;
+
+				  force
+					  .nodes(graph.nodes)
+					  .links(graph.links)
+					  .start();
+
+				  var link = svg.selectAll(".link")
+					  .data(graph.links)
+					  .enter().append("line")
+					  .attr("class", "link")
+					  .style("stroke-width", function(d) { return d.value; });
+
+				  var node = svg.selectAll(".node")
+					  .data(graph.nodes)
+					  .enter().append("circle")
+					  .attr("class", "node")
+					  .attr("r", 5)
+					  .style("fill", function(d) { return color(d.hops); })
+					  .call(force.drag);
+
+				  node.append("title")
+					  .text(function(d) { return d.eAddress + " [" + d.sAddress + "]"; });
+
+				  force.on("tick", function() {
+					link.attr("x1", function(d) { return d.source.x; })
+						.attr("y1", function(d) { return d.source.y; })
+						.attr("x2", function(d) { return d.target.x; })
+						.attr("y2", function(d) { return d.target.y; });
+
+					node.attr("cx", function(d) { return d.x; })
+						.attr("cy", function(d) { return d.y; });
+				  });
+				});
+			};
+			
+			function reload_topology() {
+				refresh_page();
+			};
+</script>
+	</head>
+	<body>
+		<!-- Content -->
+			<div id="content">
+				<div class="inner">
+					<!-- Post -->
+						<article class="box post post-excerpt">
+							<header>
+								<h3>G3 Network</h3>
+							</header>
+							<div class="info" id="nodenum"></div>
+							<svg width="960" height="500"></svg>
+							<div class="pagination">
+								<input type="button" value="Update Network" class="button next" onclick="reload_topology();"/>
+							</div>
+						</article>
+				</div>
+			</div>
+
+		<!-- Sidebar -->
+			<div id="sidebar">
+
+				<!-- Logo -->
+					<h1 id="logo"><a href="#">Widelen</a></h1>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul>
+							<li class="current"><a href="#">PRIME</a></li>
+							<li><a href="#">Configuration</a></li>
+							<li><a href="#">Statistics</a></li>
+							<li><a href="#">Operation</a></li>
+						</ul>
+					</nav>
+
+				<!-- Text -->
+					<section class="box text-style1">
+						<div class="inner">
+							<ul>
+							<li id="dcu_id">DCU ID : <br>XXXXXXXXXXXX</li>
+							<li id="dcu_sn">DCU Serial Number : <br>XXXXXXXXX</li>
+							<li id="dcu_ti">DCU Time : <br>4330575</li>
+							<li id="dcu_vs">DCU SW Version : <br>XX.XX.XX.XX</li>
+							</ul>
+							<script type="text/javascript">
+								var fecha = new Date();
+								var mm_name = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Ago", "Oct", "Nov", "Dec"];
+								
+								document.getElementById("dcu_id").innerHTML = "DCU ID : <br>XXXXXXXXXXXX";
+								document.getElementById("dcu_sn").innerHTML = "DCU Serial Number : <br>XXXXXXXXX";
+								document.getElementById("dcu_ti").innerHTML = "DCU Time : <br>" + fecha.getFullYear() + "/" + mm_name[fecha.getMonth() + 1] + "/" + fecha.getDate();
+								document.getElementById("dcu_vs").innerHTML = "DCU SW Version : <br>XX.XX.XX.XX";
+							</script>
+						</div>
+					</section>
+
+				<!-- Copyright -->
+					<ul id="copyright">
+						<li>&copy; Untitled.</li><li>Design: Widelen S.L.</a></li>
+					</ul>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

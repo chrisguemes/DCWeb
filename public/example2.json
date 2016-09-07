@@ -1,0 +1,27 @@
+{
+  "nodes":[
+    {"sAddress":0,"eAddress":"88:44:66:55:44:33:22:11","hops":0},
+    {"sAddress":1,"eAddress":"11:55:33:44:55:66:00:01","hops":1},
+    {"sAddress":2,"eAddress":"11:55:33:44:55:66:00:02","hops":2},
+    {"sAddress":3,"eAddress":"11:55:33:44:55:66:00:03","hops":3},
+    {"sAddress":4,"eAddress":"11:55:33:44:55:66:00:04","hops":4},
+    {"sAddress":5,"eAddress":"11:55:33:44:55:66:00:05","hops":5}
+  ],
+  "links":[
+    {"source":0,"target":1,"value":1},
+    {"source":0,"target":1,"value":1},
+    {"source":1,"target":2,"value":1},
+    {"source":0,"target":1,"value":1},
+    {"source":1,"target":2,"value":1},
+    {"source":2,"target":3,"value":1},
+    {"source":0,"target":1,"value":1},
+    {"source":1,"target":2,"value":1},
+    {"source":2,"target":3,"value":1},
+    {"source":3,"target":4,"value":1},
+    {"source":0,"target":1,"value":1},
+    {"source":1,"target":2,"value":1},
+    {"source":2,"target":3,"value":1},
+    {"source":3,"target":4,"value":1},
+    {"source":4,"target":5,"value":1}
+  ]
+}
