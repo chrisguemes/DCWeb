@@ -36,12 +36,11 @@ function addMessage(e) {
   return false;
 }
 
-function sendPLCMsg(e) {  
+function sendGetPIB(e) {  
   var message = {
-    user: document.getElementById('NodeUser').value,
-    cmd: document.getElementById('NodeCmd').value
+    getpib: document.getElementById('PibReqId').value
   };
-
+  
   console.log('Sending message to PLC...');
   console.log(message);
   socket.emit('new-plc-cmd', message);

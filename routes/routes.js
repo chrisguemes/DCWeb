@@ -7,6 +7,10 @@ router.get('/', function(req, res) {
 	res.render('index', { title: 'PRIME topology' });
 });
 
+router.get('/g3.html', function(req, res) {
+	res.render('indexG3', { title: 'G3 topology' });
+});
+
 router.get('/updT', function(req, res) {
 	// Escribir una línea de comando en un fichero de texto
 	fs.writeFile('public/message.txt', '0', function (err) {
@@ -33,14 +37,5 @@ router.get('/cmd', function(req, res) {
 	res.write('Enviando Respuesta.');
     res.end('Whatever you wish to send \n');
 });
-
-
-
-//// Autoload de comandos con quizId
-//router.param('quizId', quizController.load);
-//
-//router.get('/quizes', quizController.index);
-//router.get('/quizes/:quizId(\\d+)', quizController.show);
-//router.get('/quizes/:quizId(\\d+)/answer', quizController.answer);
 
 module.exports = router;
