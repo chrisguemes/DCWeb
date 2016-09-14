@@ -1,18 +1,137 @@
-<% sidebar = partial('sidebar.ejs') %>
-<div id="content">
-	<div class="inner">
-		<!-- Post -->
-			<article class="box post post-excerpt">
-				<header>
-					<h3><%= title %></h3>
-				</header>
-				<div class="info" id="nodenum"></div>
-				<table id="nodetable"></table>
-				<div class="pagination">
-					<a href="/updT" class="button next">Reload Topology</a>
-					<a href="/updV" class="button next">Update Version</a>
-					<!-- <input type="button" value="Reload Topology" class="button next" onclick="reload_topology();"/> -->
+<% sidebar = partial('sidebar_brd.ejs') %>
+
+
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">			
+	<div class="row">
+		<ol class="breadcrumb">
+			<li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+			<li class="active">Dashboard</li>
+		</ol>
+	</div><!--/.row-->
+	
+	<div class="row">
+		<div class="col-xs-12 col-md-6 col-lg-3">
+			<div class="panel panel-blue panel-widget ">
+				<div class="row no-padding">
+					<div class="col-sm-3 col-lg-5 widget-left">
+						<svg class="glyph stroked chain"><use xlink:href="#stroked-chain"/></use></svg>
+					</div>
+					<div class="col-sm-9 col-lg-7 widget-right">
+						<div class="large">320</div>
+						<div class="text-muted">Joined devices</div>
+					</div>
 				</div>
-			</article>
-	</div>
-</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-md-6 col-lg-3">
+			<div class="panel panel-orange panel-widget">
+				<div class="row no-padding">
+					<div class="col-sm-3 col-lg-5 widget-left">
+						<svg class="glyph stroked empty message"><use xlink:href="#stroked-empty-message"/></use></svg>
+					</div>
+					<div class="col-sm-9 col-lg-7 widget-right">
+						<div class="large">25.2k</div>
+						<div class="text-muted">Data messages</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-md-6 col-lg-3">
+			<div class="panel panel-teal panel-widget">
+				<div class="row no-padding">
+					<div class="col-sm-3 col-lg-5 widget-left">
+						<svg class="glyph stroked two messages"><use xlink:href="#stroked-two-messages"/></use></svg>
+					</div>
+					<div class="col-sm-9 col-lg-7 widget-right">
+						<div class="large">120k</div>
+						<div class="text-muted">Pings</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-md-6 col-lg-3">
+			<div class="panel panel-red panel-widget">
+				<div class="row no-padding">
+					<div class="col-sm-3 col-lg-5 widget-left">
+						<svg class="glyph stroked map"><use xlink:href="#stroked-map"/></use></svg>
+					</div>
+					<div class="col-sm-9 col-lg-7 widget-right">
+						<div class="large">252k</div>
+						<div class="text-muted">Routes requested</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!--/.row-->
+	
+	<div class="row">
+		<div class="col-lg-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">Network topology</div>
+				<div class="panel-body">
+					<div class="canvas-wrapper" id="d3force">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">Data throughput (bps)</div>
+				<div class="panel-body">
+					<div class="canvas-wrapper">
+						<canvas class="main-chart" id="throughput-chart" height="160" width="600"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">Average round trip time (s)</div>
+				<div class="panel-body">
+					<div class="canvas-wrapper">
+						<canvas class="main-chart" id="roundtrip-chart" height="160" width="600"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!--/.row-->
+	
+	<div class="row">
+		<div class="col-xs-6 col-md-3">
+			<div class="panel panel-default">
+				<div class="panel-body easypiechart-panel">
+					<h4>Network coverage</h4>
+					<div class="easypiechart" id="easypiechart-blue" data-percent="92" ><span class="percent">92%</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-6 col-md-3">
+			<div class="panel panel-default">
+				<div class="panel-body easypiechart-panel">
+					<h4>Data coverage</h4>
+					<div class="easypiechart" id="easypiechart-orange" data-percent="65" ><span class="percent">65%</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-6 col-md-3">
+			<div class="panel panel-default">
+				<div class="panel-body easypiechart-panel">
+					<h4>Ping success</h4>
+					<div class="easypiechart" id="easypiechart-teal" data-percent="56" ><span class="percent">56%</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-6 col-md-3">
+			<div class="panel panel-default">
+				<div class="panel-body easypiechart-panel">
+					<h4>Routing errors</h4>
+					<div class="easypiechart" id="easypiechart-red" data-percent="27" ><span class="percent">27%</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!--/.row-->
+</div>	<!--/.main-->

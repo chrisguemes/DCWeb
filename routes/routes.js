@@ -4,31 +4,30 @@ var router = express.Router();
 
 // GET home page
 router.get('/', function(req, res) {
-	res.render('index', { title: 'PRIME topology' });
+	res.render('index', { title: 'G3' });
+});
+router.get('/index.html', function(req, res) {
+	res.render('index', { title: 'G3' });
 });
 
-router.get('/g3.html', function(req, res) {
-	res.render('indexG3', { title: 'G3 topology' });
+// Devices page
+router.get('/devices.html', function(req, res) {
+	res.render('devices', { title: 'G3' });
 });
 
-router.get('/updT', function(req, res) {
-	// Escribir una línea de comando en un fichero de texto
-	fs.writeFile('public/message.txt', '0', function (err) {
-        if (err) throw err;
-        //console.log('It\'s saved! in same location.');
-    });
-	// Renderizar la misma vista de index
-	res.render('index', { title: 'PRIME topology' });
+// Network page
+router.get('/network.html', function(req, res) {
+	res.render('network', { title: 'G3' });
 });
 
-router.get('/updV', function(req, res) {
-	// Escribir una línea de comando en un fichero de texto
-	fs.writeFile('public/message.txt', '1', function (err) {
-        if (err) throw err;
-        //console.log('It\'s saved! in same location.');
-    });
-	// Renderizar la misma vista de index
-	res.render('index', { title: 'PRIME topology' });
+// Events page
+router.get('/events.html', function(req, res) {
+	res.render('events', { title: 'G3' });
+});
+
+// Configuration page
+router.get('/configuration.html', function(req, res) {
+	res.render('configuration', { title: 'G3' });
 });
 
 router.get('/cmd', function(req, res) {

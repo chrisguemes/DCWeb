@@ -1,0 +1,81 @@
+<% sidebar = partial('sidebar_dev.ejs') %>
+
+
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">			
+	<div class="row">
+		<ol class="breadcrumb">
+			<li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+			<li class="active">Devices</li>
+		</ol>
+	</div><!--/.row-->
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">Device list</div>
+				<div class="panel-body">
+					<table data-toggle="table" data-url="tables/data1.json"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
+						<thead>
+						<tr>
+							<th data-field="state" data-checkbox="true" >Node ID</th>
+							<th data-field="id" data-sortable="true">Node ID</th>
+							<th data-field="short_addr" data-sortable="true">Short address</th>
+							<th data-field="extended_addr" data-sortable="true">Extended address</th>								
+						</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div><!--/.row-->	
+	<div class="row">
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">Black list</div>
+				<div class="panel-body">
+					<table data-toggle="table" data-url="tables/data2.json" >
+						<thead>
+						<tr>
+							<th data-field="id" data-align="right">Node ID</th>
+							<th data-field="short_addr" >Short address</th>
+							<th data-field="valid_time" >Valid time</th>
+						</tr>
+						</thead>
+					</table>
+					<div class="col-md-6">
+						<form role="form">
+							<div class="form-group">
+								<div class="col-md-12">
+									<label>Edit blacklist</label>
+								</div>
+								<div class="col-md-10">
+									<input class="form-control" placeholder="0x0000">
+								</div>
+								<div class="col-md-2">
+									<button type="submit" class="btn btn-primary">Add device</button>
+								</div>
+							</div>
+						</form>
+						<div class="row">
+						</div>
+						<form role="form">
+							<div class="form-group">
+								<div class="col-md-10">
+									<select class="form-control" data-toggle="dropdown" data-url="tables/data2.json">
+										<option>Option 1</option>
+										<option>Option 2</option>
+										<option>Option 3</option>
+										<option>Option 4</option>
+									</select>
+								</div>
+								<div class="col-md-2">
+									<button type="submit" class="btn btn-primary">Remove device</button>
+								</div>									
+							</div>
+						</form>								
+					</div>	
+				</div>
+			</div>
+		</div>
+	</div><!--/.row-->		
+</div><!--/.main-->
