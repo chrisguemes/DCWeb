@@ -5,14 +5,22 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var partials = require('express-partials');
-
 var routes = require('./routes/routes');
 
 var app = express();
 
-// VIEWS --------------------------------------------------
+// VIEWS EJS ----------------------------------------------
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+// VIEWS SWIG : NOT WORK ----------------------------------
+//var swig = require('swig');
+//var swig = new swig.Swig();
+//app.engine('html', swig.renderFile);
+//app.set('view engine', 'html');
+// VIEWS JADE : NOT EASY TRANSLATION FROM HTML TO JADE ----
+//app.set('views', path.join(__dirname, 'views'));
+//app.set('view engine', 'jade');
+
 
 app.use(partials());
 app.use(bodyParser.json());
@@ -46,21 +54,15 @@ io.on('connection', function(socket) {
 	});
 
 	socket.on('new-plc-cmd', function(data) {
-		console.log('New-plc-cmd received... sending to PLC');
+		console.log('New-plc-cmd received... ');
 		console.log(data);
+		//unirest.post('http://10.140.228.17:9060')
 		unirest.post('http://127.0.0.1:9060')
 		.headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
-		.send({ "user": "NODE", "cmd": "CMD1" })
+		.send(data)
 		.end(function (response) {
 			console.log(response.body);
 		});
-
-		/*unirest.post('http://127.0.0.1:9060')
-		.header('Accept', 'application/json')
-		.send({ "Hello": "World!" })
-		.end(function (response) {
-			console.log(response.body);
-		});*/
 	});
 });
 
