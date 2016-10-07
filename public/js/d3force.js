@@ -12,7 +12,7 @@ var svg = d3.select("#d3force").append("svg")
     .attr("width", width)
     .attr("height", height);
 
-d3.json("pathlist.json", function(error, graph) {
+d3.json("tables/pathlist.json", function(error, graph) {
   if (error) throw error;
 
   force
