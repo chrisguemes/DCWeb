@@ -12,7 +12,7 @@ var svg = d3.select("#d3force").append("svg")
     .attr("width", width)
     .attr("height", height);
 
-d3.json("example.json", function(error, graph) {
+d3.json("tables/pathlist.json", function(error, graph) {
   if (error) throw error;
 
   force
@@ -31,11 +31,11 @@ d3.json("example.json", function(error, graph) {
     .enter().append("circle")
       .attr("class", "node")
       .attr("r", 5)
-      .style("fill", function(d) { return color(d.group); })
+      .style("fill", function(d) { return color(d.hops); })
       .call(force.drag);
 
   node.append("title")
-      .text(function(d) { return d.name; });
+      .text(function(d) { return d.u64Addr; });
 
   force.on("tick", function() {
     link.attr("x1", function(d) { return d.source.x; })

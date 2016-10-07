@@ -14,7 +14,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">Device list</div>
 				<div class="panel-body">
-					<table data-toggle="table" data-url="tables/data1.json"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
+					<table data-toggle="table" data-url="tables/netlist.json"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
 						<thead>
 						<tr>
 							<th data-field="state" data-checkbox="true" >Node ID</th>
@@ -33,7 +33,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">Black list</div>
 				<div class="panel-body">
-					<table data-toggle="table" data-url="tables/data2.json" >
+					<table data-toggle="table" data-url="tables/blacklist.json" >
 						<thead>
 						<tr>
 							<th data-field="id" data-align="right">Node ID</th>
@@ -61,7 +61,7 @@
 						<form role="form">
 							<div class="form-group">
 								<div class="col-md-10">
-									<select class="form-control" data-toggle="dropdown" data-url="tables/data2.json">
+									<select class="form-control" data-toggle="dropdown" data-url="tables/blacklist.json">
 										<option>Option 1</option>
 										<option>Option 2</option>
 										<option>Option 3</option>
@@ -79,3 +79,27 @@
 		</div>
 	</div><!--/.row-->		
 </div><!--/.main-->
+
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/chart.min.js"></script>
+<script src="js/chart-data.js"></script>
+<script src="js/easypiechart.js"></script>
+<script src="js/easypiechart-data.js"></script>
+<script src="js/bootstrap-datepicker.js"></script>
+<script src="js/bootstrap-table.js"></script>
+<script>
+	!function ($) {
+		$(document).on("click","ul.nav li.parent > a > span.icon", function(){		  
+			$(this).find('em:first').toggleClass("glyphicon-minus");	  
+		}); 
+		$(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
+	}(window.jQuery);
+
+	$(window).on('resize', function () {
+	  if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
+	})
+	$(window).on('resize', function () {
+	  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
+	})
+</script>	
