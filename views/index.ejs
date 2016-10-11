@@ -13,13 +13,15 @@
 		<div class="col-xs-12 col-md-6 col-lg-3">
 			<div class="panel panel-blue panel-widget ">
 				<div class="row no-padding">
+				<a href="#" onclick='updndev()'>
 					<div class="col-sm-3 col-lg-5 widget-left">
 						<svg class="glyph stroked chain"><use xlink:href="#stroked-chain"/></use></svg>
 					</div>
 					<div class="col-sm-9 col-lg-7 widget-right">
-						<div class="large">320</div>
+						<div id="num_devs" class="large">0</div>
 						<div class="text-muted">Joined devices</div>
 					</div>
+				</a>
 				</div>
 			</div>
 		</div>
@@ -30,7 +32,7 @@
 						<svg class="glyph stroked empty message"><use xlink:href="#stroked-empty-message"/></use></svg>
 					</div>
 					<div class="col-sm-9 col-lg-7 widget-right">
-						<div class="large">25.2k</div>
+						<div id="num_msgs" class="large">0</div>
 						<div class="text-muted">Data messages</div>
 					</div>
 				</div>
@@ -43,7 +45,7 @@
 						<svg class="glyph stroked two messages"><use xlink:href="#stroked-two-messages"/></use></svg>
 					</div>
 					<div class="col-sm-9 col-lg-7 widget-right">
-						<div class="large">120k</div>
+						<div id="num_pings" class="large">0</div>
 						<div class="text-muted">Pings</div>
 					</div>
 				</div>
@@ -56,7 +58,7 @@
 						<svg class="glyph stroked map"><use xlink:href="#stroked-map"/></use></svg>
 					</div>
 					<div class="col-sm-9 col-lg-7 widget-right">
-						<div class="large">252k</div>
+						<div id="num_paths" class="large">0</div>
 						<div class="text-muted">Routes requested</div>
 					</div>
 				</div>
@@ -101,7 +103,7 @@
 			<div class="panel panel-default">
 				<div class="panel-body easypiechart-panel">
 					<h4>Network coverage</h4>
-					<div class="easypiechart" id="easypiechart-blue" data-percent="92" ><span class="percent">92%</span>
+					<div class="easypiechart" id="easypiechart-blue" data-percent="0" ><span class="percent">0%</span>
 					</div>
 				</div>
 			</div>
@@ -110,7 +112,7 @@
 			<div class="panel panel-default">
 				<div class="panel-body easypiechart-panel">
 					<h4>Data coverage</h4>
-					<div class="easypiechart" id="easypiechart-orange" data-percent="65" ><span class="percent">65%</span>
+					<div class="easypiechart" id="easypiechart-orange" data-percent="0" ><span class="percent">0%</span>
 					</div>
 				</div>
 			</div>
@@ -119,7 +121,7 @@
 			<div class="panel panel-default">
 				<div class="panel-body easypiechart-panel">
 					<h4>Ping success</h4>
-					<div class="easypiechart" id="easypiechart-teal" data-percent="56" ><span class="percent">56%</span>
+					<div class="easypiechart" id="easypiechart-teal" data-percent="0" ><span class="percent">0%</span>
 					</div>
 				</div>
 			</div>
@@ -128,7 +130,7 @@
 			<div class="panel panel-default">
 				<div class="panel-body easypiechart-panel">
 					<h4>Routing errors</h4>
-					<div class="easypiechart" id="easypiechart-red" data-percent="27" ><span class="percent">27%</span>
+					<div class="easypiechart" id="easypiechart-red" data-percent="0" ><span class="percent">0%</span>
 					</div>
 				</div>
 			</div>
@@ -142,9 +144,10 @@
 <script src="js/chart-data.js"></script>
 <script src="js/bootstrap-datepicker.js"></script>
 <script>
-	$('#calendar').datepicker({
+	$(function(){ 
+		// Update request
+		updndev();
 	});
-
 	!function ($) {
 		$(document).on("click","ul.nav li.parent > a > span.icon", function(){          
 			$(this).find('em:first').toggleClass("glyphicon-minus");      
@@ -158,6 +161,26 @@
 	$(window).on('resize', function () {
 	  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
 	})
+	function updatePieChartB(data) {
+		var newValue = data;
+		$('#easypiechart-blue').data('easyPieChart').update(newValue);
+		$('span', $('#easypiechart-blue')).text(newValue);
+	}
+	function updatePieChartO(data) {
+		var newValue = data;
+		$('#easypiechart-orange').data('easyPieChart').update(newValue);
+		$('span', $('#easypiechart-orange')).text(newValue);
+	}
+	function updatePieChartT(data) {
+		var newValue = data;
+		$('#easypiechart-teal').data('easyPieChart').update(newValue);
+		$('span', $('#easypiechart-teal')).text(newValue);
+	}
+	function updatePieChartR(data) {
+		var newValue = data;
+		$('#easypiechart-red').data('easyPieChart').update(newValue);
+		$('span', $('#easypiechart-red')).text(newValue);
+	}
 </script>
 <script src="js/easypiechart.js"></script>
 <script src="js/easypiechart-data.js"></script>
