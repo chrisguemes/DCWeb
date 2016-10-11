@@ -1,20 +1,21 @@
+var color = d3.scale.category20();
+
 var width = $("#d3force").width();
 	height = 460;
 	myradius = 8
 
-var color = d3.scale.category20();
+var svg = d3.select("#d3force").append("svg")
+	.attr("width", width)
+	.attr("height", height)
+	.on("dblclick", doubleclick);
 
 var force = d3.layout.force()
-    .charge(-120)
-    .linkDistance(30)
-    .size([width, height]);
+	.gravity(.05)
+	.distance(100)
+	.charge(-100)
+	.size([width, height]);
 
-var svg = d3.select("#d3force").append("svg")
-    .attr("width", width)
-    .attr("height", height)
-    .on("dblclick", doubleclick);
-
-var nodes = force.nodes()
+var nodes = force.nodes(),
 	links = force.links();
 	
 d3.json("tables/pathlist.json", function(error, graph) {
@@ -31,7 +32,7 @@ d3.json("tables/pathlist.json", function(error, graph) {
 	  .append("line")
 	  .attr("class", "link")
 	  .style("stroke-width", function(d) { return Math.sqrt(d.value); });
-  	  
+	  
 	var node = svg.selectAll(".node")
 	  .data(graph.nodes)
 	  .enter()
@@ -41,32 +42,9 @@ d3.json("tables/pathlist.json", function(error, graph) {
 	  .style("fill", function(d) { return color(d.hops); })
 	  .call(force.drag);
 	  
-/* 	// Create the groups under svg
-	var gnodes = svg.selectAll('g.gnode')
-	  .data(graph.nodes)
-	  .enter()
-	  .append('g')
-	  .classed('gnode', true);
-
-	// Add one circle in each group
-	var node = gnodes.append("circle")
-	  .attr("class", "node")
-	  .attr("r", 15)
-	  .style("fill", function(d) { return color(d.hops); })
-	  .call(force.drag);
-
-	// Append the labels to each group
-	var labels = gnodes.append("text")
-	  .attr("dx", -8)
-      .attr("dy", ".35em")	
-	  .text(function(d) { 
-			var shortAddr = parseInt(d.u16Addr, 10);
-			return ("0"+(shortAddr.toString(16))).slice(-2).toUpperCase();
-		}); */	  
-  
 	node.append("title")
 	  .text(function(d) { return "0x000"+(d.u16Addr.toString(16)).slice(-4).toUpperCase() + " [" + d.u64Addr + "]"; });
- 	  
+	  
 	force.on("tick", function(e) {
 		link.attr("x1", function(d) { return d.source.x; })
 			.attr("y1", function(d) { return d.source.y; })
@@ -83,14 +61,6 @@ d3.json("tables/pathlist.json", function(error, graph) {
 			.attr("cx", function(d) { return d.x; })
 			.attr("cy", function(d) { return d.y; });
 		
-		// Translate the groups
-		//gnodes.attr("transform", function(d) { return 'translate(' + [d.x, d.y] + ')'; });
-		
-/*  	var q = d3.geom.quadtree(gnodes[0]),
-			i = 0,
-			n = gnodes[0].length;
-		while (++i < n) q.visit(collide(gnodes[0][i])); */
-
 	});
 });
 
@@ -119,56 +89,84 @@ function collide(node) {
 }
 
 function doubleclick() {
-  // var node = svg.selectAll(".node")
-  
-  // var point = d3.mouse(this),
-      // node = {x: point[0], y: point[1]},
-      // n = nodes.push(node);
-
-  // // add links to any nearby nodes
-  // nodes.forEach(function(target) {
-    // var x = target.x - node.x,
-        // y = target.y - node.y;
-    // if (Math.sqrt(x * x + y * y) < 30) {
-      // links.push({source: node, target: target});
-    // }
-  // });
-
   restart();
 }
 
-function restart() {
-  // var link = svg.selectAll(".link")
-  // var node = svg.selectAll(".node")
-  
-  // link = link.data(links);
+function d3forceUpdate() {
 
-  // link.enter().insert("line", ".node")
-      // .attr("class", "link");
+	var link = svg.selectAll("line.link")
+		.data(links, function(d) { return d.source + "-" + d.target; });
 
-  // node = node.data(nodes);
+	link.enter().insert("line")
+		.attr("class", "link");
 
-  // node.enter().insert("circle", ".cursor")
-      // .attr("class", "node")
-      // .attr("r", 6)
-      // .call(force.drag);
+	link.exit().remove();
 
-  force.start();
+	var node = svg.selectAll("g.node")
+		.data(nodes, function(d) { return d.u16Addr;});
+
+	var nodeEnter = node.enter().append("g")
+		.attr("class", "node")
+		.call(force.drag);
+
+	nodeEnter.append("circle")
+		.attr("r", "18px")
+		.style("fill", function(d) { return color(d.hops); })
+		
+	nodeEnter.append("image")
+		.attr("class", "circle")
+		.attr("xlink:href", "images/electricity-icon-png-4556.png")
+		.attr("x", "-15px")
+		.attr("y", "-15px")
+		.attr("width", "30px")
+		.attr("height", "30px");
+
+	nodeEnter.append("text")
+		.attr("class", "nodetext")
+		.attr("dx", 20)
+		.attr("dy", ".35em")
+		.text(function(d) {return d.u16Addr});
+
+	nodeEnter.append("title")
+		.text(function(d) {return d.u64Addr});			
+
+	node.exit().remove();
+
+	force.on("tick", function() {
+	  link.attr("x1", function(d) { return d.source.x; })
+		  .attr("y1", function(d) { return d.source.y; })
+		  .attr("x2", function(d) { return d.target.x; })
+		  .attr("y2", function(d) { return d.target.y; });
+
+	  node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+	});
+
+	// Restart the force layout.
+	force.start();
 }
+
+
 
 function d3forceAddNode(u16Addr, u64Addr, hops) {
 	nodes.push({"u16Addr":u16Addr, "u64Addr":u64Addr, "hops":hops});
-    update();
+	d3forceUpdate();
 }
 
 function d3forceAddLink(source, target, value) {
-	graph.addLink(source, target, value);
+	links.push({"source": source, "target": target, "value": value});
+	d3forceUpdate();
 }
 
 function d3forceFindNode(u64Addr) {
-	return graph.findNode(u64Addr);
+	for (var i=0; i < nodes.length; i++) {
+		if (nodes[i].u64Addr === u64Addr)
+			return nodes[i]
+	};
 }
 
 function d3forceFindLink(source, target) {
-	return graph.findLink(source, target);
+	for (var i=0; i < links.length; i++) {
+		if ((links[i].source === source) && (links[i].target === target)) 
+			return links[i]
+	};
 }

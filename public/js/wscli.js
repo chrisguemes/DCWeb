@@ -3,14 +3,11 @@ var websocket = io.connect('http://10.140.21.50:3000', { 'forceNew': true });
 
 websocket.on('welcome', function(data) { 
   console.log('Welcome message');
-  //console.log(data);
-  //render(data);
 })
 
 websocket.on('render', function(data) {  
   console.log('Render new command');
   console.log(data);
-  //render(data);
 })
 
 websocket.on('upddashboard', function(data) {  
@@ -45,59 +42,23 @@ function updateD3force(data) {
 	
 	/* Add nodes */
 	for (node in obj.nodes) {		
-		if (findNode(obj.nodes[node].u16Addr) == 0xFFFF) {
+		if (d3forceFindNode(obj.nodes[node].u64Addr) == undefined) {
 			/* Add node to d3Force graph */
-			graph.addNode(obj.nodes[node].u16Addr, obj.nodes[node].u64Addr, obj.nodes[node].hops);
+			d3forceAddNode(obj.nodes[node].u16Addr, obj.nodes[node].u64Addr, obj.nodes[node].hops);
 		}
 	}
 	
 	/* Add links */
 	for (link in obj.links) {
-		if (findLink(obj.links[link].source, obj.links[link].target) == 0xFFFF) {
+		if (d3forceFindLink(obj.links[link].source, obj.links[link].target) == undefined) {
 			/* Add node to d3Force graph */
-			graph.addLink(obj.links[link].source, obj.links[link].target, obj.links[link].value);
+			d3forceAddLink(obj.links[link].source, obj.links[link].target, obj.links[link].value);
 		}
 	}
 	
 }
 
-// function render (data) {  
-  // var html = data.map(function(elem, index) {
-    // return(`<div>
-              // <strong>${elem.user}</strong>:
-              // <em>${elem.cmd}</em>
-            // </div>`);
-  // }).join(" ");
-
-  // document.getElementById('messages').innerHTML = html;
-// }
-
-// function addMessage(e) {  
-  // var message = {
-    // user: document.getElementById('user').value,
-    // cmd: document.getElementById('command').value
-  // };
-
-  // console.log('addMessage Form');
-  // console.log(message);
-  // websocket.emit('new-cmd', message);
-  // return false;
-// }
-
-// function sendPLCCmd(e) {  
-  // var message = {
-    // getpib: document.getElementById('PibReqId').value
-  // };
-  
-  // console.log('Sending message to PLC...');
-  // console.log(message);
-  // websocket.emit('new-plc-cmd', message);
-  // return false;
-// }
-
 function updndev(e) {
-  //var x = $('#num_devs').html();
-  
   var cmd = 0
   	
   var message = {
