@@ -1,0 +1,21 @@
+Dashboard ID's:
+
+//<div id="num_paths" class="large">0</div>
+id="num_devs"
+id="num_msgs"
+id="num_pings"
+id="num_paths"
+
+id="d3force"
+
+//<canvas class="main-chart" id="datathroughput-chart" height="160" width="600"></canvas>
+id="throughput-chart"      //Data throughput (bps)
+id="roundtrip-chart"       //Average round trip time (s)
+
+
+//<div class="easypiechart" id="easypiechart-blue" data-percent="92" ><span class="percent">92%</span>
+id="easypiechart-blue"     // Network coverage
+id="easypiechart-orange"   // Data coverage
+id="easypiechart-teal"     // Ping success
+id="easypiechart-red"      // Routing errors
+
