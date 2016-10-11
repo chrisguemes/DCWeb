@@ -19,29 +19,15 @@ websocket.on('upddashboard', function(data) {
   updateDashboard(data);
 })
 
-websocket.on('lnxcmd', function(data) {  
-  console.log('Render new lnx command');
- 
-  var obj = jQuery.parseJSON(JSON.stringify(data));
-  var cmd = obj["0"].lnxcmd;
-  
-  switch (cmd) {
-	  case 64:  // Update Dashboard data (index.html)	  
-	  console.log('update dashboard')
-	  break;
-	  
-	  default:
-	  console.log('lnxcmd not supported')
-  }
-  
-  //render(data);
+websocket.on('updd3force', function(data) {  
+  console.log('Update d3 force');
+  console.log(data);
+  updateD3force(data);
 })
 
 function updateDashboard(data) {
 	var obj = jQuery.parseJSON(JSON.stringify(data));
 	
-	var x = $('#num_devs').html();
-	console.log(x);
 	console.log(obj["0"].numdevs);
 	$('#num_devs').html(obj["0"].numdevs);
 	$('#num_msgs').html(obj["0"].nummsgs);
@@ -52,6 +38,27 @@ function updateDashboard(data) {
 	updatePieChartO(obj["0"].data_cov);
 	updatePieChartT(obj["0"].ping_cov);
 	updatePieChartR(obj["0"].route_errors);
+}
+
+function updateD3force(data) {
+	var obj = jQuery.parseJSON(JSON.stringify(data));
+	
+	/* Add nodes */
+	for (node in obj.nodes) {		
+		if (findNode(obj.nodes[node].u16Addr) == 0xFFFF) {
+			/* Add node to d3Force graph */
+			graph.addNode(obj.nodes[node].u16Addr, obj.nodes[node].u64Addr, obj.nodes[node].hops);
+		}
+	}
+	
+	/* Add links */
+	for (link in obj.links) {
+		if (findLink(obj.links[link].source, obj.links[link].target) == 0xFFFF) {
+			/* Add node to d3Force graph */
+			graph.addLink(obj.links[link].source, obj.links[link].target, obj.links[link].value);
+		}
+	}
+	
 }
 
 // function render (data) {  

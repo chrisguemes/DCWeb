@@ -35,21 +35,25 @@ var returnRouter = function(io) {
 	router.post('/', function(req, res) {
 		console.log('POST Comando Recibido...');
 		res.writeHead(200, {'Content-Type': 'text/plain'});
-		res.write('Enviando Respuesta.');
-		res.end('Whatever you wish to send \n');
-		console.log(req.body);
+		res.write(' ');
+		res.end('\n');
+		//console.log(req.body);
 		
-		//var dashbrd = require('/home/DCWeb/public/tables/dashboard');
-		var file = fs.readFileSync('/home/DCWeb/public/tables/dashboard.json', 'utf8');
-		var dashbrd = JSON.parse(file);
 		var obj = JSON.parse(JSON.stringify(req.body, null, 2));
-		console.log(obj);
-		console.log(obj["0"].lnxcmd);
+		//console.log(obj);
+		//console.log(obj["0"].lnxcmd);
 		
-		/* Send Command to WEB client : receive event in wscli.js */
-		if (obj["0"].lnxcmd == 64) {
-			//console.log(dashbrd["0"].net_cov);
-			io.sockets.emit('upddashboard', dashbrd);
+		/* Send Commands to WEB client : receive events in wscli.js */
+		if (obj["0"].lnxcmd == 0x40) {
+			var file = fs.readFileSync('/home/DCWeb/public/tables/dashboard.json', 'utf8');
+			var data = JSON.parse(file);
+			io.sockets.emit('upddashboard', data);
+		}
+		
+		if (obj["0"].lnxcmd == 0x41) {
+			var file = fs.readFileSync('/home/DCWeb/public/tables/pathlist.json', 'utf8');
+			var data = JSON.parse(file);
+			io.sockets.emit('updd3force', data);
 		}
 		
 		
