@@ -1,8 +1,6 @@
 var width = $("#d3force").width();
 	height = 460;
-//var myradius = 15
-    padding = 6, // separation between nodes
-    maxRadius = 12;
+	myradius = 8
 
 var color = d3.scale.category20();
 
@@ -16,8 +14,8 @@ var svg = d3.select("#d3force").append("svg")
     .attr("height", height)
     .on("dblclick", doubleclick);
 
-// var nodes = force.nodes(),
-    // links = force.links();
+var nodes = force.nodes()
+	links = force.links();
 	
 d3.json("tables/pathlist.json", function(error, graph) {
 	if (error) throw error;
@@ -34,17 +32,16 @@ d3.json("tables/pathlist.json", function(error, graph) {
 	  .attr("class", "link")
 	  .style("stroke-width", function(d) { return Math.sqrt(d.value); });
   	  
-/* 	//var node = svg.selectAll(".node")
-	var node = svg.selectAll("circle")	
+	var node = svg.selectAll(".node")
 	  .data(graph.nodes)
 	  .enter()
 	  .append("circle")
 	  .attr("class", "node")
 	  .attr("r", myradius)
 	  .style("fill", function(d) { return color(d.hops); })
-	  .call(force.drag); */
+	  .call(force.drag);
 	  
-	// Create the groups under svg
+/* 	// Create the groups under svg
 	var gnodes = svg.selectAll('g.gnode')
 	  .data(graph.nodes)
 	  .enter()
@@ -65,10 +62,10 @@ d3.json("tables/pathlist.json", function(error, graph) {
 	  .text(function(d) { 
 			var shortAddr = parseInt(d.u16Addr, 10);
 			return ("0"+(shortAddr.toString(16))).slice(-2).toUpperCase();
-		});	  
+		}); */	  
   
-	gnodes.append("title")
-	  .text(function(d) { return d.u64Addr; });
+	node.append("title")
+	  .text(function(d) { return "0x000"+(d.u16Addr.toString(16)).slice(-4).toUpperCase() + " [" + d.u64Addr + "]"; });
  	  
 	force.on("tick", function(e) {
 		link.attr("x1", function(d) { return d.source.x; })
@@ -76,57 +73,49 @@ d3.json("tables/pathlist.json", function(error, graph) {
 			.attr("x2", function(d) { return d.target.x; })
 			.attr("y2", function(d) { return d.target.y; });
 
-/* 		node.attr("cx", function(d) { return d.x; })
-			.attr("cy", function(d) { return d.y; }); */
-
-/*
-		// Funciona con nodos normales
 		var nodes = force.nodes();
 		var q = d3.geom.quadtree(nodes),
 			i = 0,
 			n = nodes.length;
-		while (++i < n) q.visit(collide(nodes[i])); */
-			
-		// Translate the groups
-		gnodes.attr("transform", function(d) { return 'translate(' + [d.x, d.y] + ')'; });
+		while (++i < n) q.visit(collide(nodes[i]));
+
+		svg.selectAll("circle")
+			.attr("cx", function(d) { return d.x; })
+			.attr("cy", function(d) { return d.y; });
 		
-/*  		var q = d3.geom.quadtree(gnodes[0]),
+		// Translate the groups
+		//gnodes.attr("transform", function(d) { return 'translate(' + [d.x, d.y] + ')'; });
+		
+/*  	var q = d3.geom.quadtree(gnodes[0]),
 			i = 0,
 			n = gnodes[0].length;
 		while (++i < n) q.visit(collide(gnodes[0][i])); */
 
-	
-  });
+	});
 });
 
-// Resolve collisions between nodes.
 function collide(node) {
-    var nodeEl = svg.selectAll('g.gnode')
-        .filter(function(d, i) {
-            return node.id == d.id
-        }).node();   
-    var nodeSize = nodeEl.getBBox().height+16;//You can remove/reduce this static value 16 to decrease the gap between nodes.
-    var r = nodeSize / 2 + 16,
-        nx1 = node.x - r,
-        nx2 = node.x + r,
-        ny1 = node.y - r,
-        ny2 = node.y + r;
-    return function(quad, x1, y1, x2, y2) {
-        if (quad.point && (quad.point !== node)) {
-            var x = node.x - quad.point.x,
-                y = node.y - quad.point.y,
-                l = Math.sqrt(x * x + y * y),
-                r = nodeSize / 2 + quad.point.radius;
-            if (l < r) {
-                l = (l - r) / l * .5;
-                node.x -= x *= l;
-                node.y -= y *= l;
-                quad.point.x += x;
-                quad.point.y += y;
-            }
-        }
-        return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
-    };
+  var r = myradius + 16,
+      nx1 = node.x - r,
+      nx2 = node.x + r,
+      ny1 = node.y - r,
+      ny2 = node.y + r;
+  return function(quad, x1, y1, x2, y2) {
+    if (quad.point && (quad.point !== node)) {
+      var x = node.x - quad.point.x,
+          y = node.y - quad.point.y,
+          l = Math.sqrt(x * x + y * y),
+          r = myradius * 2;
+      if (l < r) {
+        l = (l - r) / l * .5;
+        node.x -= x *= l;
+        node.y -= y *= l;
+        quad.point.x += x;
+        quad.point.y += y;
+      }
+    }
+    return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
+  };
 }
 
 function doubleclick() {
