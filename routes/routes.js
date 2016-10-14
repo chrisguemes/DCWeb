@@ -44,13 +44,17 @@ var returnRouter = function(io) {
 		//console.log(obj["0"].lnxcmd);
 		
 		/* Send Commands to WEB client : receive events in wscli.js */
+		/* LNXCMS_UPDATE_DASHBOARD */
 		if (obj["0"].lnxcmd == 0x40) {
+			console.log("ROUTES: LNXCMS_UPDATE_DASHBOARD");
 			var file = fs.readFileSync('/home/DCWeb/public/tables/dashboard.json', 'utf8');
 			var data = JSON.parse(file);
 			io.sockets.emit('upddashboard', data);
 		}
 		
+		/* LNXCMS_UPDATE_PATHLIST */
 		if (obj["0"].lnxcmd == 0x41) {
+			console.log("ROUTES: LNXCMS_UPDATE_PATHLIST");
 			var file = fs.readFileSync('/home/DCWeb/public/tables/pathlist.json', 'utf8');
 			var data = JSON.parse(file);
 			io.sockets.emit('updd3force', data);
