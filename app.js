@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var partials = require('express-partials');
+var fs = require('fs');
 
 // Create Express application -----------------------------
 var app = express();
@@ -36,18 +37,20 @@ app.use('/', routes);
 
 io.on('connection', function(socket) {  
 	console.log('Alguien se ha conectado con Sockets');
-	socket.emit('welcome');  //, cmds);
+	socket.emit('welcome');
 	
-	// socket.on('lnx-cmd', function(data) {
-		// console.log('Linux cmd...');
-		// console.log(data);
+	socket.on('upd_dashboard_info', function(data) {
+		console.log('Node: upd_dashboard_info req');
+		console.log(data);
 		
-		// /* Send Command to WEB client : receive event in wscli.js */
-		// io.sockets.emit('lnxcmd', data);
-	// });
+		/* Send info to dashboard trhough wscli.js */
+		var file = fs.readFileSync('/home/DCWeb/public/tables/dashboard.json', 'utf8');
+		var data = JSON.parse(file);
+		io.sockets.emit('upddashboard', data);
+	});
 
-	socket.on('web-cmd', function(data) {
-		console.log('Web cmd...');
+	socket.on('client-req-lnx', function(data) {
+		console.log('Node: client-req-lnx');
 		console.log(data);
 		
 		/* Send Command to Linux : receive event in PLCManager application */
@@ -67,6 +70,6 @@ app.use(function(req, res, next) {
     next(err);
 });
 
-server.listen(3000, function() {  
+server.listen(4000, function() {  
   console.log("Servidor corriendo en http://localhost:3000");
 });

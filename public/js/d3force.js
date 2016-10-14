@@ -172,3 +172,8 @@ function d3forceFindNode(u64Addr) {
 function d3forceFindLink(source, target) {
 	return graph.findLink(source, target);
 }
+
+function d3forceRestart(e) {
+	//force.start();
+	force.start();
+}
