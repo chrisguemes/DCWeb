@@ -37,11 +37,8 @@ var returnRouter = function(io) {
 		res.writeHead(200, {'Content-Type': 'text/plain'});
 		res.write(' ');
 		res.end('\n');
-		//console.log(req.body);
 		
 		var obj = JSON.parse(JSON.stringify(req.body, null, 2));
-		//console.log(obj);
-		//console.log(obj["0"].lnxcmd);
 		
 		/* Send Commands to WEB client : receive events in wscli.js */
 		/* LNXCMS_UPDATE_DASHBOARD */
@@ -60,10 +57,42 @@ var returnRouter = function(io) {
 			io.sockets.emit('updd3force', data);
 		}
 		
+		/* LNXCMS_UPDATE_ROUNDTIME */
+		if (obj["0"].lnxcmd == 0x42) {
+			console.log("ROUTES: LNXCMS_UPDATE_ROUNDTIME");
+			var data = getRoundTimeDataGraph();
+			io.sockets.emit('updroundtime', data);
+		}
+		
 		
 	});
 
     return router;
+}
+
+// /* Add new sample to ICMP data graph */
+function getRoundTimeDataGraph() {
+	console.log("getRoundTimeDataGraph");
+	
+	/* Read file to obtain new sample */
+	var file = fs.readFileSync('/home/DCWeb/public/tables/roundtime.json', 'utf8');
+	var newdata = JSON.parse(file);
+	
+	/* Read file to obtain ICMP data graph */
+	var filegraph = fs.readFileSync('/home/DCWeb/public/tables/roundtimegraph.json', 'utf8');
+	var datagraph = JSON.parse(filegraph);
+	
+	datagraph.push(newdata);
+	
+	while (datagraph.length > 7) {
+		datagraph.shift();
+	}
+	
+	/* update filegraph */
+	fs.unlinkSync('/home/DCWeb/public/tables/roundtimegraph.json');
+	var contents = fs.writeFileSync('/home/DCWeb/public/tables/roundtimegraph.json', JSON.stringify(datagraph));	
+		
+	return datagraph;
 }
 
 module.exports = returnRouter;

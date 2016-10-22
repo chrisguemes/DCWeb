@@ -47,6 +47,12 @@ io.on('connection', function(socket) {
 		var file = fs.readFileSync('/home/DCWeb/public/tables/dashboard.json', 'utf8');
 		var data = JSON.parse(file);
 		io.sockets.emit('upddashboard', data);
+		
+		console.log("ROUTES: LNXCMS_UPDATE_ROUNDTIME");
+		/* Read file to obtain ICMP data graph */
+		var filegraph = fs.readFileSync('/home/DCWeb/public/tables/roundtimegraph.json', 'utf8');
+		var datagraph = JSON.parse(filegraph);
+		io.sockets.emit('updroundtime', datagraph);
 	});
 
 	socket.on('client-req-lnx', function(data) {

@@ -152,10 +152,11 @@ function tick() {
         .attr("y2", function(d) { return d.target.y; });
 		
 	var nodes = force.nodes();
-	var q = d3.geom.quadtree(nodes),
-		i = 0,
-		n = nodes.length;
-	while (++i < n) q.visit(collide(nodes[i]));
+	var q = d3.geom.quadtree(nodes);
+		
+	for (node in nodes) {
+		q.visit(collide(node));
+	}
 }
 
 function collide(node) {
@@ -191,25 +192,11 @@ function d3forceAddLink(source, target, value) {
 	force.links().push({"source": source, "target": target, "value": value});
 	//update_graph();
 }
+function d3forceRestart(e) {
+	//force.start();
+	update_graph();
+}
 
-// ================================================================
-// Toplevel methods start here
-
-// 1. Add three nodes and three links.
 setTimeout(function() {
     update_graph();
 }, 0);
-
-// 2. Remove node B and associated links.
-setTimeout(function() {
-	d3forceAddNode(1, "11:22:33:44:55:66:77:31", 1);
-	d3forceAddLink(1, 0, 1);
-	update_graph();	
-}, 2000);
-
-// 3. Add node B back.
-setTimeout(function() {
-	d3forceAddNode(2, "11:22:33:44:55:66:77:29", 1);
-	d3forceAddLink(2, 0, 1);
-	update_graph();
-}, 4000);

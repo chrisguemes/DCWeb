@@ -1,5 +1,4 @@
-//var websocket = io.connect('http://localhost:3000', { 'forceNew': true });
-var websocket = io.connect('http://10.140.21.50:4000', { 'forceNew': true });
+var websocket = io.connect('http://'+window.location.host, { 'forceNew': true });
 
 websocket.on('welcome', function(data) { 
   console.log('WSCLI: Welcome message');
@@ -12,13 +11,20 @@ websocket.on('welcome', function(data) {
 
 websocket.on('upddashboard', function(data) {  
   console.log('WSCLI: Update dash board');
-  console.log(data);
+  //console.log(data);
+  updateDashboard(data);
+})
+
+websocket.on('updroundtime', function(data) {  
+  console.log('WSCLI: Update ICMP round time');
+  //console.log(data);
+  updateICMPRoundTime(data);
   updateDashboard(data);
 })
 
 websocket.on('updd3force', function(data) {  
   console.log('WSCLI: Update d3 force');
-  console.log(data);
+  //console.log(data);
   //updateD3force(data);
   //update_graph();
   d3forceRestart();
