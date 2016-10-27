@@ -64,13 +64,20 @@ var returnRouter = function(io) {
 			io.sockets.emit('updroundtime', data);
 		}
 		
+		/* LNXCMS_UPDATE_THROUGHPUT */
+		if (obj["0"].lnxcmd == 0x43) {
+			console.log("ROUTES: LNXCMS_UPDATE_THROUGHPUT");
+			var data = getDataThroughputDataGraph();
+			io.sockets.emit('updroundtime', data);
+		}
+		
 		
 	});
 
     return router;
 }
 
-// /* Add new sample to ICMP data graph */
+/* Add new sample to ICMP data graph */
 function getRoundTimeDataGraph() {
 	console.log("getRoundTimeDataGraph");
 	
@@ -91,6 +98,31 @@ function getRoundTimeDataGraph() {
 	/* update filegraph */
 	fs.unlinkSync('/home/DCWeb/public/tables/roundtimegraph.json');
 	var contents = fs.writeFileSync('/home/DCWeb/public/tables/roundtimegraph.json', JSON.stringify(datagraph));	
+		
+	return datagraph;
+}
+
+/* Add new sample to Data Throughput data graph */
+function getDataThroughputDataGraph() {
+	console.log("getDataThroughputDataGraph");
+	
+	/* Read file to obtain new sample */
+	var file = fs.readFileSync('/home/DCWeb/public/tables/throughput.json', 'utf8');
+	var newdata = JSON.parse(file);
+	
+	/* Read file to obtain ICMP data graph */
+	var filegraph = fs.readFileSync('/home/DCWeb/public/tables/throughputgraph.json', 'utf8');
+	var datagraph = JSON.parse(filegraph);
+	
+	datagraph.push(newdata);
+	
+	while (datagraph.length > 7) {
+		datagraph.shift();
+	}
+	
+	/* update filegraph */
+	fs.unlinkSync('/home/DCWeb/public/tables/throughputgraph.json');
+	var contents = fs.writeFileSync('/home/DCWeb/public/tables/throughputgraph.json', JSON.stringify(datagraph));	
 		
 	return datagraph;
 }

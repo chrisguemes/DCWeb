@@ -41,18 +41,21 @@ io.on('connection', function(socket) {
 	
 	socket.on('upd_dashboard_info', function(data) {
 		console.log('Node: upd_dashboard_info req');
-		console.log(data);
 		
 		/* Send info to dashboard trhough wscli.js */
 		var file = fs.readFileSync('/home/DCWeb/public/tables/dashboard.json', 'utf8');
 		var data = JSON.parse(file);
 		io.sockets.emit('upddashboard', data);
 		
-		console.log("ROUTES: LNXCMS_UPDATE_ROUNDTIME");
 		/* Read file to obtain ICMP data graph */
 		var filegraph = fs.readFileSync('/home/DCWeb/public/tables/roundtimegraph.json', 'utf8');
 		var datagraph = JSON.parse(filegraph);
-		io.sockets.emit('updroundtime', datagraph);
+		io.sockets.emit('initroundtime', datagraph);
+		
+		/* Read file to obtain ICMP data graph */
+		var filegraph = fs.readFileSync('/home/DCWeb/public/tables/throughputgraph.json', 'utf8');
+		var datagraph = JSON.parse(filegraph);
+		io.sockets.emit('initdatathroughput', datagraph);
 	});
 
 	socket.on('client-req-lnx', function(data) {

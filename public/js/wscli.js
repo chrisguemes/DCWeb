@@ -15,10 +15,27 @@ websocket.on('upddashboard', function(data) {
   updateDashboard(data);
 })
 
+websocket.on('initroundtime', function(data) {  
+  console.log('WSCLI: Init ICMP round time');
+  updateICMPRoundTime(data);
+})
+
 websocket.on('updroundtime', function(data) {  
   console.log('WSCLI: Update ICMP round time');
   //console.log(data);
   updateICMPRoundTime(data);
+  updateDashboard(data);
+})
+
+websocket.on('initdatathroughput', function(data) {  
+  console.log('WSCLI: Init Data Thoughput');
+  updateDataThroughput(data);
+})
+
+websocket.on('upddatathroughput', function(data) {  
+  console.log('WSCLI: Update Data Thoughput');
+  //console.log(data);
+  updateDataThroughput(data);
   updateDashboard(data);
 })
 
