@@ -5,10 +5,10 @@ var router = express.Router();
 var returnRouter = function(io) {
 	// GET home page
 	router.get('/', function(req, res) {
-		res.render('index', { title: 'G3' });
+		res.render('devices', { title: 'G3' });
 	});
 	router.get('/index.html', function(req, res) {
-		res.render('index', { title: 'G3' });
+		res.render('devices', { title: 'G3' });
 	});
 
 	// Devices page
@@ -16,14 +16,9 @@ var returnRouter = function(io) {
 		res.render('devices', { title: 'G3' });
 	});
 
-	// Network page
-	router.get('/network.html', function(req, res) {
-		res.render('network', { title: 'G3' });
-	});
-
-	// Events page
-	router.get('/events.html', function(req, res) {
-		res.render('events', { title: 'G3' });
+	// Statistics page
+	router.get('/statistics.html', function(req, res) {
+		res.render('statistics', { title: 'G3' });
 	});
 
 	// Configuration page
@@ -40,91 +35,17 @@ var returnRouter = function(io) {
 		
 		var obj = JSON.parse(JSON.stringify(req.body, null, 2));
 		
-		/* Send Commands to WEB client : receive events in wscli.js */
-		/* LNXCMS_UPDATE_DASHBOARD */
-		if (obj["0"].lnxcmd == 0x40) {
-			console.log("ROUTES: LNXCMS_UPDATE_DASHBOARD");
-			var file = fs.readFileSync('/home/DCWeb/public/tables/dashboard.json', 'utf8');
-			var data = JSON.parse(file);
-			io.sockets.emit('upddashboard', data);
-		}
-		
+		/* Send Commands to WEB client : receive events in wscli.js */		
 		/* LNXCMS_UPDATE_PATHLIST */
 		if (obj["0"].lnxcmd == 0x41) {
 			console.log("ROUTES: LNXCMS_UPDATE_PATHLIST");
 			var file = fs.readFileSync('/home/DCWeb/public/tables/pathlist.json', 'utf8');
 			var data = JSON.parse(file);
 			io.sockets.emit('updd3force', data);
-		}
-		
-		/* LNXCMS_UPDATE_ROUNDTIME */
-		if (obj["0"].lnxcmd == 0x42) {
-			console.log("ROUTES: LNXCMS_UPDATE_ROUNDTIME");
-			var data = getRoundTimeDataGraph();
-			io.sockets.emit('updroundtime', data);
-		}
-		
-		/* LNXCMS_UPDATE_THROUGHPUT */
-		if (obj["0"].lnxcmd == 0x43) {
-			console.log("ROUTES: LNXCMS_UPDATE_THROUGHPUT");
-			var data = getDataThroughputDataGraph();
-			io.sockets.emit('updroundtime', data);
-		}
-		
-		
+		}		
 	});
 
     return router;
-}
-
-/* Add new sample to ICMP data graph */
-function getRoundTimeDataGraph() {
-	console.log("getRoundTimeDataGraph");
-	
-	/* Read file to obtain new sample */
-	var file = fs.readFileSync('/home/DCWeb/public/tables/roundtime.json', 'utf8');
-	var newdata = JSON.parse(file);
-	
-	/* Read file to obtain ICMP data graph */
-	var filegraph = fs.readFileSync('/home/DCWeb/public/tables/roundtimegraph.json', 'utf8');
-	var datagraph = JSON.parse(filegraph);
-	
-	datagraph.push(newdata);
-	
-	while (datagraph.length > 7) {
-		datagraph.shift();
-	}
-	
-	/* update filegraph */
-	fs.unlinkSync('/home/DCWeb/public/tables/roundtimegraph.json');
-	var contents = fs.writeFileSync('/home/DCWeb/public/tables/roundtimegraph.json', JSON.stringify(datagraph));	
-		
-	return datagraph;
-}
-
-/* Add new sample to Data Throughput data graph */
-function getDataThroughputDataGraph() {
-	console.log("getDataThroughputDataGraph");
-	
-	/* Read file to obtain new sample */
-	var file = fs.readFileSync('/home/DCWeb/public/tables/throughput.json', 'utf8');
-	var newdata = JSON.parse(file);
-	
-	/* Read file to obtain ICMP data graph */
-	var filegraph = fs.readFileSync('/home/DCWeb/public/tables/throughputgraph.json', 'utf8');
-	var datagraph = JSON.parse(filegraph);
-	
-	datagraph.push(newdata);
-	
-	while (datagraph.length > 7) {
-		datagraph.shift();
-	}
-	
-	/* update filegraph */
-	fs.unlinkSync('/home/DCWeb/public/tables/throughputgraph.json');
-	var contents = fs.writeFileSync('/home/DCWeb/public/tables/throughputgraph.json', JSON.stringify(datagraph));	
-		
-	return datagraph;
 }
 
 module.exports = returnRouter;
