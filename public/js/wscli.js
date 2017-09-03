@@ -4,47 +4,10 @@ websocket.on('welcome', function(data) {
   console.log('WSCLI: Welcome message');
 })
 
-// websocket.on('render', function(data) {  
-  // console.log('Render new command');
-  // console.log(data);
-// })
-
-websocket.on('upddashboard', function(data) {  
-  console.log('WSCLI: Update dash board');
+websocket.on('updrefreshdevlist', function(data) {  
+  console.log('WSCLI: Refresh Device List');
   //console.log(data);
-  updateDashboard(data);
-})
-
-websocket.on('initroundtime', function(data) {  
-  console.log('WSCLI: Init ICMP round time');
-  updateICMPRoundTime(data);
-})
-
-websocket.on('updroundtime', function(data) {  
-  console.log('WSCLI: Update ICMP round time');
-  //console.log(data);
-  updateICMPRoundTime(data);
-  updateDashboard(data);
-})
-
-websocket.on('initdatathroughput', function(data) {  
-  console.log('WSCLI: Init Data Thoughput');
-  updateDataThroughput(data);
-})
-
-websocket.on('upddatathroughput', function(data) {  
-  console.log('WSCLI: Update Data Thoughput');
-  //console.log(data);
-  updateDataThroughput(data);
-  updateDashboard(data);
-})
-
-websocket.on('updd3force', function(data) {  
-  console.log('WSCLI: Update d3 force');
-  //console.log(data);
-  //updateD3force(data);
-  //update_graph();
-  d3forceRestart();
+  refreshDeviceTable();
 })
 
 function updateDashboard(data) {

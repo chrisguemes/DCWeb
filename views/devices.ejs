@@ -13,8 +13,8 @@
 		<div class="col-lg-12">
 			<div class="panel panel-default">
 				<div class="panel-heading">Device list</div>
-				<div class="panel-body">
-					<table data-toggle="table" data-url="tables/devlist.json"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
+				<div class="panel-body" id="devicetable">
+					<table data-toggle="table" data-url="tables/devlist.json"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="false" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
 						<thead>
 						<tr>
 							<th data-field="state" data-checkbox="true" >Node ID</th>
@@ -39,6 +39,12 @@
 <script src="js/bootstrap-datepicker.js"></script>
 <script src="js/bootstrap-table.js"></script>
 <script>
+/* Para pedir actualizaciones a Node al cargar la vista
+	$(function(){ 
+		// Request Update dashboard info. Esta funcion esta en "wscli.js"
+		upd_dashboard_info_req();
+	});
+*/
 	!function ($) {
 		$(document).on("click","ul.nav li.parent > a > span.icon", function(){		  
 			$(this).find('em:first').toggleClass("glyphicon-minus");	  
@@ -52,4 +58,17 @@
 	$(window).on('resize', function () {
 	  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
 	})
+	
+/* También se pueden poner funciones para actualizar elementos propios de la vista. Estas funciones se pueden llamar desde el "wscli.js" al recibir algun comando desde Node.
+	function updatePieChartR(data) {
+		var newValue = data;
+		$('#easypiechart-red').data('easyPieChart').update(newValue);
+		$('span', $('#easypiechart-red')).text(newValue);
+	}
+*/	
+	function refreshDeviceTable() {
+		console.log('devices view: refreshDeviceTable');
+		location.reload(true);
+	}
+	
 </script>	
