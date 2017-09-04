@@ -16,6 +16,12 @@ websocket.on('upd_statistics_rsp', function(data) {
   refreshStatistics(data);
 })
 
+websocket.on('upd_statistics_plcmng_rsp', function(data) {  
+  console.log("WSCLI: Update PLCManager statistics response");
+  console.log(data);
+  refreshPLCManaherStatistics(data);
+})
+
 function upd_statistics_req(data) {
 	console.log("WSCLI: Update statistics request");
 	websocket.emit('upd_statistics_req');

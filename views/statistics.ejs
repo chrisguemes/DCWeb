@@ -40,7 +40,7 @@
 							<label>CPU utilization (%)</label>
 						</div>
 						<div id="stat_sys_cpu" class="col-md-6">						
-							<p>0/p>
+							<p>0</p>
 						</div>
 					</div>
 					<div class="row">
@@ -345,5 +345,15 @@
 		$('#stat_ppp0_collisions').html(data[23]);
 		$('#stat_ppp0_rx_bytes').html(data[24]);
 		$('#stat_ppp0_tx_bytes').html(data[25]);
+		$('#stat_sys_mem').html(data[26]);
+		$('#stat_sys_cpu').html(data[27]);
+	}
+	
+	function refreshPLCManaherStatistics(data) {
+		console.log('Statistics view: PLC Manager refreshStatistics');
+		console.log(data);
+		// Update each DIV_ID content
+		$('#stat_sys_mem').html(data[0]);
+		$('#stat_sys_cpu').html(data[1]);
 	}
 </script>	

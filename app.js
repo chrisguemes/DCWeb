@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var partials = require('express-partials');
 var fs = require('fs');
+var pusage = require('pidusage')
 
 // Create Express application -----------------------------
 var app = express();
@@ -35,6 +36,31 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Enable ROUTES ------------------------------------------
 app.use('/', routes);
 
+
+
+var formatBytes = function(bytes, precision) {
+  var kilobyte = 1024;
+  var megabyte = kilobyte * 1024;
+  var gigabyte = megabyte * 1024;
+  var terabyte = gigabyte * 1024;
+
+  if ((bytes >= 0) && (bytes < kilobyte)) {
+    return bytes + ' B   ';
+  } else if ((bytes >= kilobyte) && (bytes < megabyte)) {
+    return (bytes / kilobyte).toFixed(precision) + ' KB  ';
+  } else if ((bytes >= megabyte) && (bytes < gigabyte)) {
+    return (bytes / megabyte).toFixed(precision) + ' MB  ';
+  } else if ((bytes >= gigabyte) && (bytes < terabyte)) {
+    return (bytes / gigabyte).toFixed(precision) + ' GB  ';
+  } else if (bytes >= terabyte) {
+    return (bytes / terabyte).toFixed(precision) + ' TB  ';
+  } else {
+    return bytes + ' B   ';
+  }
+};
+
+
+
 io.on('connection', function(socket) {  
 	console.log('Alguien se ha conectado con Sockets');
 	socket.emit('welcome');
@@ -42,8 +68,9 @@ io.on('connection', function(socket) {
 	socket.on('upd_statistics_req', function(data) {
 		console.log('Node: upd_statistics_info req');
 		
-		/* Get all statistics from system files */
 		var stats = []
+		
+		/* Get all statistics from system files */
 		/* ETH0 IFACE */
 		var file = fs.readFileSync('/sys/class/net/eth0/statistics/rx_packets', 'utf8');
 		stats.push(file)
@@ -99,10 +126,26 @@ io.on('connection', function(socket) {
 		file = fs.readFileSync('/sys/class/net/ppp0/statistics/tx_bytes', 'utf8');
 		stats.push(file)
 		
-		console.log(stats);
+		//console.log(stats);
 		
 		/* Send info to dashboard through wscli.js */
 		io.sockets.emit('upd_statistics_rsp', stats);
+				
+		/* PLC Manager PID */
+		var pid = 1256
+		pusage.stat(pid, function(err, stat) {
+			
+			var pid_stats = []
+			//console.log('PLCManager Pcpu: %s', stat.cpu)
+			//console.log('PLCManager Mem: %s', stat.memory) //those are bytes
+			/* PLCManager PID stats */
+			pid_stats.push(stat.cpu)
+			pid_stats.push(stat.memory)
+			
+			/* Send info to dashboard through wscli.js */
+			io.sockets.emit('upd_statistics_plcmng_rsp', pid_stats);
+		})
+		pusage.unmonitor(pid);
 	});
 	
 	// socket.on('upd_dashboard_info', function(data) {
