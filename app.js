@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var partials = require('express-partials');
 var fs = require('fs');
 var pusage = require('pidusage')
+var os = require('os-utils');
 
 // Create Express application -----------------------------
 var app = express();
@@ -131,21 +132,39 @@ io.on('connection', function(socket) {
 		/* Send info to dashboard through wscli.js */
 		io.sockets.emit('upd_statistics_rsp', stats);
 				
-		/* PLC Manager PID */
-		var pid = 1256
-		pusage.stat(pid, function(err, stat) {
+		// /* PLC Manager PID */
+		// var pid = 1256
+		// pusage.stat(pid, function(err, stat) {
 			
-			var pid_stats = []
-			//console.log('PLCManager Pcpu: %s', stat.cpu)
-			//console.log('PLCManager Mem: %s', stat.memory) //those are bytes
-			/* PLCManager PID stats */
-			pid_stats.push(stat.cpu)
-			pid_stats.push(stat.memory)
+			// var pid_stats = []
+			// //console.log('PLCManager Pcpu: %s', stat.cpu)
+			// //console.log('PLCManager Mem: %s', stat.memory) //those are bytes
+			// /* PLCManager PID stats */
+			// pid_stats.push(stat.cpu)
+			// pid_stats.push(stat.memory)
+			
+			// /* Send info to dashboard through wscli.js */
+			// io.sockets.emit('upd_statistics_plcmng_rsp', pid_stats);
+		// })
+		// pusage.unmonitor(pid);
+		
+		/* System info */
+		var sys_stats = []
+		os.cpuFree(function(v){
+			// console.log( 'CPU Free:' + v );
+			sys_stats.push(v);
+			// console.log('totalmem:' + os.totalmem()*1024);
+			sys_stats.push(os.totalmem()*1024);
+			// console.log('freemem:' + os.freemem()*1024);
+			sys_stats.push(os.freemem()*1024);
+			// console.log('sysUptime:' + os.sysUptime());
+			sys_stats.push(os.sysUptime());
+			//console.log('Load Average (5m):' + os.loadavg(5));
+			sys_stats.push(os.loadavg(5));
 			
 			/* Send info to dashboard through wscli.js */
-			io.sockets.emit('upd_statistics_plcmng_rsp', pid_stats);
-		})
-		pusage.unmonitor(pid);
+			io.sockets.emit('upd_statistics_sys_rsp', sys_stats);
+		});	
 	});
 	
 	// socket.on('upd_dashboard_info', function(data) {

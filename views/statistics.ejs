@@ -21,7 +21,7 @@
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-6">
-							<label>Uptime</label>
+							<label>Uptime (sec)</label>
 						</div>
 						<div id="stat_sys_uptime" class="col-md-6">						
 							<p>0</p>
@@ -29,28 +29,36 @@
 					</div>
 					<div class="row">
 						<div class="col-md-6">
-							<label>Memory usage (%)</label>
+							<label>CPU free (%)</label>
 						</div>
-						<div id="stat_sys_mem" class="col-md-6">	
+						<div id="stat_sys_cpu_free" class="col-md-6">						
 							<p>0</p>
 						</div>
-					</div>
+					</div>		
 					<div class="row">
 						<div class="col-md-6">
-							<label>CPU utilization (%)</label>
+							<label>Total RAM memory (Bytes)</label>
 						</div>
-						<div id="stat_sys_cpu" class="col-md-6">						
+						<div id="stat_sys_mem_total" class="col-md-6">						
 							<p>0</p>
 						</div>
-					</div>
+					</div>		
 					<div class="row">
 						<div class="col-md-6">
-							<label>System memory usage (%)</label>
+							<label>Free RAM memory (Bytes)</label>
 						</div>
-						<div id="stat_sys_mem_all" class="col-md-6">						
+						<div id="stat_sys_mem_free" class="col-md-6">						
 							<p>0</p>
 						</div>
-					</div>					
+					</div>			
+					<div class="row">
+						<div class="col-md-6">
+							<label>Load Average in the last 5 min (%)</label>
+						</div>
+						<div id="stat_sys_load_avg" class="col-md-6">						
+							<p>0</p>
+						</div>
+					</div>			
 				</div>
 			</div>
 		</div>
@@ -355,5 +363,16 @@
 		// Update each DIV_ID content
 		$('#stat_sys_mem').html(data[0]);
 		$('#stat_sys_cpu').html(data[1]);
+	}
+	
+	function refreshSystemStatistics(data) {
+		console.log('Statistics view: System refreshStatistics');
+		console.log(data);
+		// Update each DIV_ID content
+		$('#stat_sys_cpu_free').html(data[0] * 100.00);
+		$('#stat_sys_mem_total').html(data[1]);
+		$('#stat_sys_mem_free').html(data[2]);
+		$('#stat_sys_uptime').html(data[3]);
+		$('#stat_sys_load_avg').html(data[4] * 100.00);
 	}
 </script>	
