@@ -10,6 +10,19 @@ websocket.on('updrefreshdevlist', function(data) {
   refreshDeviceTable();
 })
 
+websocket.on('upd_statistics_rsp', function(data) {  
+  console.log("WSCLI: Update statistics response");
+  console.log(data);
+  refreshStatistics(data);
+})
+
+function upd_statistics_req(data) {
+	console.log("WSCLI: Update statistics request");
+	websocket.emit('upd_statistics_req');
+}
+
+
+
 function updateDashboard(data) {
 	var obj = jQuery.parseJSON(JSON.stringify(data));
 	

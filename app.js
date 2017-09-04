@@ -39,24 +39,76 @@ io.on('connection', function(socket) {
 	console.log('Alguien se ha conectado con Sockets');
 	socket.emit('welcome');
 	
-	socket.on('upd_dashboard_info', function(data) {
-		console.log('Node: upd_dashboard_info req');
+	socket.on('upd_statistics_req', function(data) {
+		console.log('Node: upd_statistics_info req');
 		
-		/* Send info to dashboard trhough wscli.js */
-		var file = fs.readFileSync('/home/DCWeb/public/tables/dashboard.json', 'utf8');
-		var data = JSON.parse(file);
-		io.sockets.emit('upddashboard', data);
+		/* Get all statistics from system files */
+		var stats = []
+		/* ETH0 IFACE */
+		var file = fs.readFileSync('/sys/class/net/eth0/statistics/rx_bytes', 'utf8');
+		stats.push(file)
+		file = fs.readFileSync('/sys/class/net/eth0/statistics/rx_errors', 'utf8');
+		stats.push(file)
+		file = fs.readFileSync('/sys/class/net/eth0/statistics/rx_dropped', 'utf8');
+		stats.push(file)
+		file = fs.readFileSync('/sys/class/net/eth0/statistics/rx_packets', 'utf8');
+		stats.push(file)
+		file = fs.readFileSync('/sys/class/net/eth0/statistics/tx_bytes', 'utf8');
+		stats.push(file)
+		file = fs.readFileSync('/sys/class/net/eth0/statistics/tx_errors', 'utf8');
+		stats.push(file)
+		file = fs.readFileSync('/sys/class/net/eth0/statistics/tx_dropped', 'utf8');
+		stats.push(file)
+		file = fs.readFileSync('/sys/class/net/eth0/statistics/tx_packets', 'utf8');
+		stats.push(file)
+		file = fs.readFileSync('/sys/class/net/eth0/statistics/collisions', 'utf8');
+		stats.push(file)
+		file = fs.readFileSync('/sys/class/net/eth0/statistics/multicast', 'utf8');
+		stats.push(file)
+		/* PPP0 IFACE */
+		file = fs.readFileSync('/sys/class/net/ppp0/statistics/rx_bytes', 'utf8');
+		stats.push(file)
+		file = fs.readFileSync('/sys/class/net/ppp0/statistics/rx_errors', 'utf8');
+		stats.push(file)
+		file = fs.readFileSync('/sys/class/net/ppp0/statistics/rx_dropped', 'utf8');
+		stats.push(file)
+		file = fs.readFileSync('/sys/class/net/ppp0/statistics/rx_packets', 'utf8');
+		stats.push(file)
+		file = fs.readFileSync('/sys/class/net/ppp0/statistics/tx_bytes', 'utf8');
+		stats.push(file)
+		file = fs.readFileSync('/sys/class/net/ppp0/statistics/tx_errors', 'utf8');
+		stats.push(file)
+		file = fs.readFileSync('/sys/class/net/ppp0/statistics/tx_dropped', 'utf8');
+		stats.push(file)
+		file = fs.readFileSync('/sys/class/net/ppp0/statistics/tx_packets', 'utf8');
+		stats.push(file)
+		file = fs.readFileSync('/sys/class/net/ppp0/statistics/collisions', 'utf8');
+		stats.push(file)
+		file = fs.readFileSync('/sys/class/net/ppp0/statistics/multicast', 'utf8');
+		stats.push(file)
 		
-		/* Read file to obtain ICMP data graph */
-		var filegraph = fs.readFileSync('/home/DCWeb/public/tables/roundtimegraph.json', 'utf8');
-		var datagraph = JSON.parse(filegraph);
-		io.sockets.emit('initroundtime', datagraph);
-		
-		/* Read file to obtain ICMP data graph */
-		var filegraph = fs.readFileSync('/home/DCWeb/public/tables/throughputgraph.json', 'utf8');
-		var datagraph = JSON.parse(filegraph);
-		io.sockets.emit('initdatathroughput', datagraph);
+		/* Send info to dashboard through wscli.js */
+		io.sockets.emit('upd_statistics_rsp', stats);
 	});
+	
+	// socket.on('upd_dashboard_info', function(data) {
+		// console.log('Node: upd_dashboard_info req');
+		
+		// /* Send info to dashboard trhough wscli.js */
+		// var file = fs.readFileSync('/home/DCWeb/public/tables/dashboard.json', 'utf8');
+		// var data = JSON.parse(file);
+		// io.sockets.emit('upddashboard', data);
+		
+		// /* Read file to obtain ICMP data graph */
+		// var filegraph = fs.readFileSync('/home/DCWeb/public/tables/roundtimegraph.json', 'utf8');
+		// var datagraph = JSON.parse(filegraph);
+		// io.sockets.emit('initroundtime', datagraph);
+		
+		// /* Read file to obtain ICMP data graph */
+		// var filegraph = fs.readFileSync('/home/DCWeb/public/tables/throughputgraph.json', 'utf8');
+		// var datagraph = JSON.parse(filegraph);
+		// io.sockets.emit('initdatathroughput', datagraph);
+	// });
 
 	socket.on('client-req-lnx', function(data) {
 		console.log('Node: client-req-lnx');
