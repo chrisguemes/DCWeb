@@ -45,47 +45,61 @@ io.on('connection', function(socket) {
 		/* Get all statistics from system files */
 		var stats = []
 		/* ETH0 IFACE */
-		var file = fs.readFileSync('/sys/class/net/eth0/statistics/rx_bytes', 'utf8');
+		var file = fs.readFileSync('/sys/class/net/eth0/statistics/rx_packets', 'utf8');
 		stats.push(file)
 		file = fs.readFileSync('/sys/class/net/eth0/statistics/rx_errors', 'utf8');
 		stats.push(file)
 		file = fs.readFileSync('/sys/class/net/eth0/statistics/rx_dropped', 'utf8');
 		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/eth0/statistics/rx_packets', 'utf8');
+		file = fs.readFileSync('/sys/class/net/eth0/statistics/rx_over_errors', 'utf8');
 		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/eth0/statistics/tx_bytes', 'utf8');
+		file = fs.readFileSync('/sys/class/net/eth0/statistics/rx_frame_errors', 'utf8');
+		stats.push(file)
+		file = fs.readFileSync('/sys/class/net/eth0/statistics/tx_packets', 'utf8');
 		stats.push(file)
 		file = fs.readFileSync('/sys/class/net/eth0/statistics/tx_errors', 'utf8');
 		stats.push(file)
 		file = fs.readFileSync('/sys/class/net/eth0/statistics/tx_dropped', 'utf8');
 		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/eth0/statistics/tx_packets', 'utf8');
+		file = fs.readFileSync('/sys/class/net/eth0/statistics/tx_fifo_errors', 'utf8');
+		stats.push(file)
+		file = fs.readFileSync('/sys/class/net/eth0/statistics/tx_carrier_errors', 'utf8');
 		stats.push(file)
 		file = fs.readFileSync('/sys/class/net/eth0/statistics/collisions', 'utf8');
 		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/eth0/statistics/multicast', 'utf8');
+		file = fs.readFileSync('/sys/class/net/eth0/statistics/rx_bytes', 'utf8');
+		stats.push(file)
+		file = fs.readFileSync('/sys/class/net/eth0/statistics/tx_bytes', 'utf8');
 		stats.push(file)
 		/* PPP0 IFACE */
-		file = fs.readFileSync('/sys/class/net/ppp0/statistics/rx_bytes', 'utf8');
+		file = fs.readFileSync('/sys/class/net/ppp0/statistics/rx_packets', 'utf8');
 		stats.push(file)
 		file = fs.readFileSync('/sys/class/net/ppp0/statistics/rx_errors', 'utf8');
 		stats.push(file)
 		file = fs.readFileSync('/sys/class/net/ppp0/statistics/rx_dropped', 'utf8');
 		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/ppp0/statistics/rx_packets', 'utf8');
+		file = fs.readFileSync('/sys/class/net/ppp0/statistics/rx_over_errors', 'utf8');
 		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/ppp0/statistics/tx_bytes', 'utf8');
+		file = fs.readFileSync('/sys/class/net/ppp0/statistics/rx_frame_errors', 'utf8');
+		stats.push(file)
+		file = fs.readFileSync('/sys/class/net/ppp0/statistics/tx_packets', 'utf8');
 		stats.push(file)
 		file = fs.readFileSync('/sys/class/net/ppp0/statistics/tx_errors', 'utf8');
 		stats.push(file)
 		file = fs.readFileSync('/sys/class/net/ppp0/statistics/tx_dropped', 'utf8');
 		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/ppp0/statistics/tx_packets', 'utf8');
+		file = fs.readFileSync('/sys/class/net/ppp0/statistics/tx_fifo_errors', 'utf8');
+		stats.push(file)
+		file = fs.readFileSync('/sys/class/net/ppp0/statistics/tx_carrier_errors', 'utf8');
 		stats.push(file)
 		file = fs.readFileSync('/sys/class/net/ppp0/statistics/collisions', 'utf8');
 		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/ppp0/statistics/multicast', 'utf8');
+		file = fs.readFileSync('/sys/class/net/ppp0/statistics/rx_bytes', 'utf8');
 		stats.push(file)
+		file = fs.readFileSync('/sys/class/net/ppp0/statistics/tx_bytes', 'utf8');
+		stats.push(file)
+		
+		console.log(stats);
 		
 		/* Send info to dashboard through wscli.js */
 		io.sockets.emit('upd_statistics_rsp', stats);

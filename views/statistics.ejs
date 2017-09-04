@@ -23,7 +23,7 @@
 						<div class="col-md-6">
 							<label>Uptime</label>
 						</div>
-						<div class="col-md-6" id ="stat_sys_uptime">						
+						<div id="stat_sys_uptime" class="col-md-6">						
 							<p>0</p>
 						</div>
 					</div>
@@ -31,7 +31,7 @@
 						<div class="col-md-6">
 							<label>Memory usage (%)</label>
 						</div>
-						<div class="col-md-6" id ="stat_sys_mem">	
+						<div id="stat_sys_mem" class="col-md-6">	
 							<p>0</p>
 						</div>
 					</div>
@@ -39,7 +39,7 @@
 						<div class="col-md-6">
 							<label>CPU utilization (%)</label>
 						</div>
-						<div class="col-md-6" id ="stat_sys_cpu">						
+						<div id="stat_sys_cpu" class="col-md-6">						
 							<p>0/p>
 						</div>
 					</div>
@@ -47,7 +47,7 @@
 						<div class="col-md-6">
 							<label>System memory usage (%)</label>
 						</div>
-						<div class="col-md-6" id ="stat_sys_mem_all">						
+						<div id="stat_sys_mem_all" class="col-md-6">						
 							<p>0</p>
 						</div>
 					</div>					
@@ -65,42 +65,106 @@
 						<div class="col-md-6">
 							<label>Total packets received</label>
 						</div>
-						<div class="col-md-6">						
-							<p>620516640</p>
+						<div id="stat_eth0_rx_packets" class="col-md-6">						
+							<p>0</p>
 						</div>
 					</div>	
 					<div class="row">
 						<div class="col-md-6">
-							<label>Forwarded</label>
+							<label>RX Errors</label>
 						</div>
-						<div class="col-md-6">						
+						<div id="stat_eth0_rx_errors" class="col-md-6">						
 							<p>0</p>
 						</div>
 					</div>		
 					<div class="row">
 						<div class="col-md-6">
-							<label>Discarded incoming packets</label>
+							<label>RX Dropped</label>
 						</div>
-						<div class="col-md-6">						
+						<div id="stat_eth0_rx_dropped" class="col-md-6">						
 							<p>0</p>
 						</div>
 					</div>						
 					<div class="row">
 						<div class="col-md-6">
-							<label>Delivered incoming packets</label>
+							<label>RX Overruns</label>
 						</div>
-						<div class="col-md-6">						
-							<p>615716262</p>
+						<div id="stat_eth0_rx_overruns" class="col-md-6">						
+							<p>0</p>
 						</div>
 					</div>		
 					<div class="row">
 						<div class="col-md-6">
-							<label>Requests sent out</label>
+							<label>RX Frame errors</label>
 						</div>
-						<div class="col-md-6">						
-							<p>699594782</p>
+						<div id="stat_eth0_rx_frame" class="col-md-6">						
+							<p>0</p>
+						</div>
+					</div>		
+					<div class="row">
+						<div class="col-md-6">
+							<label>Total packets transmitted</label>
+						</div>
+						<div id="stat_eth0_tx_packets" class="col-md-6">						
+							<p>0</p>
+						</div>
+					</div>	
+					<div class="row">
+						<div class="col-md-6">
+							<label>TX Errors</label>
+						</div>
+						<div id="stat_eth0_tx_errors" class="col-md-6">						
+							<p>0</p>
+						</div>
+					</div>		
+					<div class="row">
+						<div class="col-md-6">
+							<label>TX Dropped</label>
+						</div>
+						<div id="stat_eth0_tx_dropped" class="col-md-6">						
+							<p>0</p>
 						</div>
 					</div>						
+					<div class="row">
+						<div class="col-md-6">
+							<label>TX Overruns</label>
+						</div>
+						<div id="stat_eth0_tx_overruns" class="col-md-6">						
+							<p>0</p>
+						</div>
+					</div>		
+					<div class="row">
+						<div class="col-md-6">
+							<label>TX Carrier errors</label>
+						</div>
+						<div id="stat_eth0_tx_carrier" class="col-md-6">						
+							<p>0</p>
+						</div>
+					</div>		
+					<div class="row">
+						<div class="col-md-6">
+							<label>Collisions</label>
+						</div>
+						<div id="stat_eth0_collisions" class="col-md-6">						
+							<p>0</p>
+						</div>
+					</div>	
+					<div class="row">
+						<div class="col-md-6">
+							<label>RX Bytes</label>
+						</div>
+						<div id="stat_eth0_rx_bytes" class="col-md-6">						
+							<p>0</p>
+						</div>
+					</div>		
+					<div class="row">
+						<div class="col-md-6">
+							<label>TX Bytes</label>
+						</div>
+						<div id="stat_eth0_tx_bytes" class="col-md-6">						
+							<p>0</p>
+						</div>
+					</div>		
 				</div>
 			</div>
 		</div>
@@ -113,52 +177,108 @@
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-6">
-							<label>Average round trip time</label>
+							<label>Total packets received</label>
 						</div>
-						<div class="col-md-6">						
-							<p>928 ms</p>
-						</div>
-					</div>					
-					<div class="row">
-						<div class="col-md-6">
-							<label>Broadcast messages sent</label>
-						</div>
-						<div class="col-md-6">						
-							<p>1</p>
+						<div id="stat_ppp0_rx_packets" class="col-md-6">						
+							<p>0</p>
 						</div>
 					</div>	
 					<div class="row">
 						<div class="col-md-6">
-							<label>Bytes transmitted (broadcast)</label>
+							<label>RX Errors</label>
 						</div>
-						<div class="col-md-6">						
-							<p>16</p>
+						<div id="stat_ppp0_rx_errors" class="col-md-6">						
+							<p>0</p>
+						</div>
+					</div>		
+					<div class="row">
+						<div class="col-md-6">
+							<label>RX Dropped</label>
+						</div>
+						<div id="stat_ppp0_rx_dropped" class="col-md-6">						
+							<p>0</p>
 						</div>
 					</div>						
 					<div class="row">
 						<div class="col-md-6">
-							<label>Unicast messages sent</label>
+							<label>RX Overruns</label>
 						</div>
-						<div class="col-md-6">						
-							<p>8536</p>
+						<div id="stat_ppp0_rx_overruns" class="col-md-6">						
+							<p>0</p>
 						</div>
-					</div>
+					</div>		
 					<div class="row">
 						<div class="col-md-6">
-							<label>Bytes transmitted (unicast)</label>
+							<label>RX Frame errors</label>
 						</div>
-						<div class="col-md-6">						
-							<p>136576</p>
+						<div id="stat_ppp0_rx_frame" class="col-md-6">						
+							<p>0</p>
 						</div>
-					</div>					
+					</div>		
 					<div class="row">
 						<div class="col-md-6">
-							<label>Data throughput</label>
+							<label>Total packets transmitted</label>
 						</div>
-						<div class="col-md-6">						
-							<p>0.725 messages/sec</p>
+						<div id="stat_ppp0_tx_packets" class="col-md-6">						
+							<p>0</p>
 						</div>
-					</div>					
+					</div>	
+					<div class="row">
+						<div class="col-md-6">
+							<label>TX Errors</label>
+						</div>
+						<div id="stat_ppp0_tx_errors" class="col-md-6">						
+							<p>0</p>
+						</div>
+					</div>		
+					<div class="row">
+						<div class="col-md-6">
+							<label>TX Dropped</label>
+						</div>
+						<div id="stat_ppp0_tx_dropped" class="col-md-6">						
+							<p>0</p>
+						</div>
+					</div>						
+					<div class="row">
+						<div class="col-md-6">
+							<label>TX Overruns</label>
+						</div>
+						<div id="stat_ppp0_tx_overruns" class="col-md-6">						
+							<p>0</p>
+						</div>
+					</div>		
+					<div class="row">
+						<div class="col-md-6">
+							<label>TX Carrier errors</label>
+						</div>
+						<div id="stat_ppp0_tx_carrier" class="col-md-6">						
+							<p>0</p>
+						</div>
+					</div>		
+					<div class="row">
+						<div class="col-md-6">
+							<label>Collisions</label>
+						</div>
+						<div id="stat_ppp0_collisions" class="col-md-6">						
+							<p>0</p>
+						</div>
+					</div>	
+					<div class="row">
+						<div class="col-md-6">
+							<label>RX Bytes</label>
+						</div>
+						<div id="stat_ppp0_rx_bytes" class="col-md-6">						
+							<p>0</p>
+						</div>
+					</div>		
+					<div class="row">
+						<div class="col-md-6">
+							<label>TX Bytes</label>
+						</div>
+						<div id="stat_ppp0_tx_bytes" class="col-md-6">						
+							<p>0</p>
+						</div>
+					</div>		
 				</div>
 			</div>
 		</div>	
@@ -174,12 +294,13 @@
 <script src="js/easypiechart-data.js"></script>
 <script src="js/bootstrap-datepicker.js"></script>
 <script>
-/* Para pedir actualizaciones a Node al cargar la vista
+    /* Para pedir actualizaciones a Node al cargar la vista */
 	$(function(){ 
 		// Request. Esta funcion esta en "wscli.js"
+		console.log('Statistics view: upd_statistics_req()');
 		upd_statistics_req();
 	});
-*/
+
 	!function ($) {
 		$(document).on("click","ul.nav li.parent > a > span.icon", function(){		  
 			$(this).find('em:first').toggleClass("glyphicon-minus");	  
@@ -194,8 +315,35 @@
 	  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
 	})
 	
-	function refreshStatistics() {
-		console.log('devices view: refreshStatistics');
+	function refreshStatistics(data) {
+		console.log('Statistics view: refreshStatistics');
+		console.log(data);
 		// Update each DIV_ID content
+		$('#stat_eth0_rx_packets').html(data[0]);
+		$('#stat_eth0_rx_errors').html(data[1]);
+		$('#stat_eth0_rx_dropped').html(data[2]);
+		$('#stat_eth0_rx_overruns').html(data[3]);
+		$('#stat_eth0_rx_frame').html(data[4]);
+		$('#stat_eth0_tx_packets').html(data[5]);
+		$('#stat_eth0_tx_errors').html(data[6]);
+		$('#stat_eth0_tx_dropped').html(data[7]);
+		$('#stat_eth0_tx_overruns').html(data[8]);
+		$('#stat_eth0_tx_carrier').html(data[9]);
+		$('#stat_eth0_collisions').html(data[10]);
+		$('#stat_eth0_rx_bytes').html(data[11]);
+		$('#stat_eth0_tx_bytes').html(data[12]);
+		$('#stat_ppp0_rx_packets').html(data[13]);
+		$('#stat_ppp0_rx_errors').html(data[14]);
+		$('#stat_ppp0_rx_dropped').html(data[15]);
+		$('#stat_ppp0_rx_overruns').html(data[16]);
+		$('#stat_ppp0_rx_frame').html(data[17]);
+		$('#stat_ppp0_tx_packets').html(data[18]);
+		$('#stat_ppp0_tx_errors').html(data[19]);
+		$('#stat_ppp0_tx_dropped').html(data[20]);
+		$('#stat_ppp0_tx_overruns').html(data[21]);
+		$('#stat_ppp0_tx_carrier').html(data[22]);
+		$('#stat_ppp0_collisions').html(data[23]);
+		$('#stat_ppp0_rx_bytes').html(data[24]);
+		$('#stat_ppp0_tx_bytes').html(data[25]);
 	}
 </script>	
