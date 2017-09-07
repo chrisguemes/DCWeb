@@ -28,9 +28,20 @@ websocket.on('upd_statistics_sys_rsp', function(data) {
   refreshSystemStatistics(data);
 })
 
+websocket.on('upd_configuration_rsp', function(data) {  
+  console.log("WSCLI: Update Configuration response");
+  console.log(data);
+  refreshConfiguration(data);
+})
+
 function upd_statistics_req(data) {
 	console.log("WSCLI: Update statistics request");
 	websocket.emit('upd_statistics_req');
+}
+
+function upd_configuration_req(data) {
+	console.log("WSCLI: Update configuration request");
+	websocket.emit('upd_configuration_req');
 }
 
 

@@ -132,22 +132,6 @@ io.on('connection', function(socket) {
 		/* Send info to dashboard through wscli.js */
 		io.sockets.emit('upd_statistics_rsp', stats);
 				
-		// /* PLC Manager PID */
-		// var pid = 1256
-		// pusage.stat(pid, function(err, stat) {
-			
-			// var pid_stats = []
-			// //console.log('PLCManager Pcpu: %s', stat.cpu)
-			// //console.log('PLCManager Mem: %s', stat.memory) //those are bytes
-			// /* PLCManager PID stats */
-			// pid_stats.push(stat.cpu)
-			// pid_stats.push(stat.memory)
-			
-			// /* Send info to dashboard through wscli.js */
-			// io.sockets.emit('upd_statistics_plcmng_rsp', pid_stats);
-		// })
-		// pusage.unmonitor(pid);
-		
 		/* System info */
 		var sys_stats = []
 		os.cpuFree(function(v){
@@ -166,26 +150,64 @@ io.on('connection', function(socket) {
 			io.sockets.emit('upd_statistics_sys_rsp', sys_stats);
 		});	
 	});
-	
-	// socket.on('upd_dashboard_info', function(data) {
-		// console.log('Node: upd_dashboard_info req');
-		
-		// /* Send info to dashboard trhough wscli.js */
-		// var file = fs.readFileSync('/home/DCWeb/public/tables/dashboard.json', 'utf8');
-		// var data = JSON.parse(file);
-		// io.sockets.emit('upddashboard', data);
-		
-		// /* Read file to obtain ICMP data graph */
-		// var filegraph = fs.readFileSync('/home/DCWeb/public/tables/roundtimegraph.json', 'utf8');
-		// var datagraph = JSON.parse(filegraph);
-		// io.sockets.emit('initroundtime', datagraph);
-		
-		// /* Read file to obtain ICMP data graph */
-		// var filegraph = fs.readFileSync('/home/DCWeb/public/tables/throughputgraph.json', 'utf8');
-		// var datagraph = JSON.parse(filegraph);
-		// io.sockets.emit('initdatathroughput', datagraph);
-	// });
 
+	socket.on('upd_configuration_req', function(data) {
+		console.log('Node: upd_configuration_req req');
+		
+		var config = []
+		
+		/* Get all configuration from home/cfg files */
+		var file = fs.readFileSync('/home/cfg/sysname', 'utf8');
+		config.push(file)
+		var file = fs.readFileSync('/home/cfg/sysnodename', 'utf8');
+		config.push(file)
+		var file = fs.readFileSync('/home/cfg/sysrelease', 'utf8');
+		config.push(file)
+		var file = fs.readFileSync('/home/cfg/sysversion', 'utf8');
+		config.push(file)
+		var file = fs.readFileSync('/home/cfg/sysmachine', 'utf8');
+		config.push(file)
+		var file = fs.readFileSync('/home/cfg/startuptime', 'utf8');
+		config.push(file)
+
+		var file = fs.readFileSync('/home/cfg/appname', 'utf8');
+		config.push(file)
+		var file = fs.readFileSync('/home/cfg/appversion', 'utf8');
+		config.push(file)
+
+		var file = fs.readFileSync('/home/cfg/pppmacdaddress', 'utf8');
+		config.push(file)
+		var file = fs.readFileSync('/home/cfg/pppula', 'utf8');
+		config.push(file)
+		var file = fs.readFileSync('/home/cfg/ppplla', 'utf8');
+		config.push(file)
+		var file = fs.readFileSync('/home/cfg/routeppp', 'utf8');
+		config.push(file)
+
+		var file = fs.readFileSync('/home/cfg/plcula', 'utf8');
+		config.push(file)
+		var file = fs.readFileSync('/home/cfg/plclla', 'utf8');
+		config.push(file)
+		var file = fs.readFileSync('/home/cfg/plcprefix', 'utf8');
+		config.push(file)
+		var file = fs.readFileSync('/home/cfg/routeplc', 'utf8');
+		config.push(file)
+
+		var file = fs.readFileSync('/home/cfg/panid', 'utf8');
+		config.push(file)
+		var file = fs.readFileSync('/home/cfg/secpsk', 'utf8');
+		config.push(file)
+		var file = fs.readFileSync('/home/cfg/secgmk', 'utf8');
+		config.push(file)
+		var file = fs.readFileSync('/home/cfg/maxhops', 'utf8');
+		config.push(file)
+		var file = fs.readFileSync('/home/cfg/maxjoinwaittime', 'utf8');
+		config.push(file)
+
+		/* Send info to dashboard through wscli.js */
+		io.sockets.emit('upd_configuration_rsp', config);
+	});
+	
 	socket.on('client-req-lnx', function(data) {
 		console.log('Node: client-req-lnx');
 		console.log(data);

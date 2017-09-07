@@ -23,20 +23,12 @@
 								<div class="col-md-10">						
 									<p>G3 Gateway</p>
 								</div>
-						</div>
-						<div class="row">
-								<div class="col-md-2">
-									<label>Serial #</label>
-								</div>
-								<div class="col-md-10">						
-									<p>G20161014</p>
-								</div>
-						</div>						
+						</div>				
 						<div class="row">
 								<div class="col-md-2">
 									<label>OS version</label>
 								</div>
-								<div class="col-md-10">						
+								<div class="col-md-10" id="id_sys_info">						
 									<p>Linux aria 4.4.16 #3 Thu Sep 29 21:43:36 CEST 2016 armv5tejl GNU/Linux</p>
 								</div>
 						</div>
@@ -44,8 +36,16 @@
 								<div class="col-md-2">
 									<label>Application</label>
 								</div>
-								<div class="col-md-10">						
+								<div class="col-md-10" id="id_app_info">						
 									<p>PLC Manager v1.0</p>
+								</div>
+						</div>		
+						<div class="row">
+								<div class="col-md-2">
+									<label>Startup Time</label>
+								</div>
+								<div class="col-md-10" id="id_startup_time">						
+									<p>0</p>
 								</div>
 						</div>				
 					</div><!-- /.panel-body -->
@@ -56,47 +56,90 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="panel panel-success">
-				<div class="panel-heading">Gateway</div>
+				<div class="panel-heading">PPP Interface</div>
 					<div class="panel-body">
 						<div class="form-group">
+							<div class="row">
+								<div class="col-md-3">
+									<label>MAC Address (MAC)</label>
+								</div>
+								<div class="col-md-4" id="id_ppp_mac">
+									<p>0</p>
+								</div>
+							</div>
 							<div class="row">						
 								<div class="col-md-3">
 									<label>Unique Local Address (ULA)</label>
 								</div>
-								<div class="col-md-4">						
-									<input class="form-control" placeholder="FD00:0:0:2:1122:3344:5566:7788">
+								<div class="col-md-4" id="id_ppp_ula">						
+									<p>0</p>
 								</div>
 							</div>
-							<div class="row">
+							<div class="row">						
 								<div class="col-md-3">
-									<label>Network prefix</label>
+									<label>Link Local Address (LLA)</label>
 								</div>
-								<div class="col-md-4">
-									<input class="form-control" placeholder="FD00:0:0:2::/64">
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-3">
-									<label>Network prefix length</label>
-								</div>
-								<div class="col-md-4">
-									<input class="form-control" placeholder="64">
+								<div class="col-md-4" id="id_ppp_lla">						
+									<p>0</p>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-3">
 									<label>Routing address</label>
 								</div>
-								<div class="col-md-4">
-									<input class="form-control" placeholder="FD00:140:21:0:fec2:3dff:fe1f:d7f8">
+								<div class="col-md-4" id="id_ppp_routing">
+									<p>0</p>
 								</div>
 							</div>
 						</div>
-						<button type="submit" class="btn btn-primary">Save changes</button>
 					</div>
 			</div><!-- /.panel -->
 		</div><!-- /.col-->
 	</div><!-- /.row -->
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-success">
+				<div class="panel-heading">PLC Interface</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<div class="row">						
+								<div class="col-md-3">
+									<label>Unique Local Address (ULA)</label>
+								</div>
+								<div class="col-md-4" id="id_plc_ula">						
+									<p>0</p>
+								</div>
+							</div>
+							<div class="row">						
+								<div class="col-md-3">
+									<label>Link Local Address (LLA)</label>
+								</div>
+								<div class="col-md-4" id="id_plc_lla">						
+									<p>0</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-3">
+									<label>Network prefix</label>
+								</div>
+								<div class="col-md-4" id="id_plc_prefix">
+									<p>0</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-3">
+									<label>Routing address</label>
+								</div>
+								<div class="col-md-4" id="id_plc_routing">
+									<p>0</p>
+								</div>
+							</div>
+						</div>
+					</div>
+			</div><!-- /.panel -->
+		</div><!-- /.col-->
+	</div><!-- /.row -->	
 
 	<div class="row">
 		<div class="col-lg-12">
@@ -108,35 +151,42 @@
 								<div class="col-md-3">
 									<label>PAN Id</label>
 								</div>
-								<div class="col-md-4">						
-									<input class="form-control" placeholder="781D" title="0x781d">
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-3">
-									<label>Gateway ULA</label>
-								</div>
-								<div class="col-md-4">
-									<input class="form-control" placeholder="FD00::781D:00AB:CDff:feef:0000">
+								<div class="col-md-4" id="id_pan_id">						
+									<p>0</p>
 								</div>
 							</div>
 							<div class="row">						
 								<div class="col-md-3">
 									<label>PSK</label>
 								</div>
-								<div class="col-md-4">						
-									<input class="form-control" placeholder="AB10341145111BC3C12DE8FF11142204">
+								<div class="col-md-4" id="id_sec_psk">						
+									<p>0</p>
 								</div>
 							</div>
 							<div class="row">						
 								<div class="col-md-3">
 									<label>GMK</label>
 								</div>
-								<div class="col-md-4">						
-									<input class="form-control" placeholder="AF4D6DCCF14DE7C1C4235E6FEF6C151F">
+								<div class="col-md-4" id="id_sec_gmk">						
+									<p>0</p>
 								</div>
-							</div>								
-							<button type="submit" class="btn btn-primary">Save changes</button>
+							</div>	
+							<div class="row">						
+								<div class="col-md-3">
+									<label>Max Hops</label>
+								</div>
+								<div class="col-md-4" id="id_max_hops">						
+									<p>0</p>
+								</div>
+							</div>	
+							<div class="row">						
+								<div class="col-md-3">
+									<label>Max Join Wait Time</label>
+								</div>
+								<div class="col-md-4" id="id_max_join_wait_time">						
+									<p>0</p>
+								</div>
+							</div>	
 					</div>
 			</div><!-- /.panel -->
 		</div><!-- /.col-->
@@ -151,6 +201,13 @@
 <script src="js/easypiechart-data.js"></script>
 <script src="js/bootstrap-datepicker.js"></script>
 <script>
+    /* Para pedir actualizaciones a Node al cargar la vista */
+	$(function(){ 
+		// Request. Esta funcion esta en "wscli.js"
+		console.log('Configuration view: upd_configuration_req()');
+		upd_configuration_req();
+	});
+
 	!function ($) {
 		$(document).on("click","ul.nav li.parent > a > span.icon", function(){		  
 			$(this).find('em:first').toggleClass("glyphicon-minus");	  
@@ -164,4 +221,34 @@
 	$(window).on('resize', function () {
 	  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
 	})
+
+	function refreshConfiguration(data) {
+		console.log('Configuration view: PLC Manager refreshConfiguration');
+		console.log(data);
+		// Update each DIV_ID content
+
+		var sysinfo = data[0] + " " + data[1] + " " + data[2] + " " + data[3] + " " + data[4]
+		$('#id_sys_info').html(sysinfo);
+
+		$('#id_startup_time').html(data[5]);
+
+		var appinfo = data[6] + " " + data[7] 
+		$('#id_app_info').html(appinfo);
+
+		$('#id_ppp_mac').html(data[8]);
+		$('#id_ppp_ula').html(data[9]);
+		$('#id_ppp_lla').html(data[10]);
+		$('#id_ppp_routing').html(data[11]);
+
+		$('#id_plc_ula').html(data[12]);
+		$('#id_plc_lla').html(data[13]);
+		$('#id_plc_prefix').html(data[14]);
+		$('#id_plc_routing').html(data[15]);
+
+		$('#id_pan_id').html(data[16]);
+		$('#id_sec_psk').html(data[17]);
+		$('#id_sec_gmk').html(data[18]);
+		$('#id_max_hops').html(data[19]);
+		$('#id_max_join_wait_time').html(data[20]);
+	}
 </script>	
