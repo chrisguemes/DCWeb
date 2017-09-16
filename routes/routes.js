@@ -42,35 +42,24 @@ var returnRouter = function(io) {
 			var file = fs.readFileSync('/home/DCWeb/public/tables/devlist.json', 'utf8');
 			var data = JSON.parse(file);
 			io.sockets.emit('updrefreshdevlist', data);
-		}		
+		}	
+
+		/* LNXCMD_GPRS_ON */
+		if (obj["0"].lnxcmd == 0x41) {
+			console.log("ROUTES: LNXCMD_GPRS_ON");
+			var data = "ON";
+			io.sockets.emit('updrefreshgprsstatus', data);
+		}	
+
+		/* LNXCMD_GPRS_OFF */
+		if (obj["0"].lnxcmd == 0x42) {
+			console.log("ROUTES: LNXCMD_GPRS_OFF");
+			var data = "OFF";
+			io.sockets.emit('updrefreshgprsstatus', data);
+		}			
 	});
 
     return router;
 }
-
-// /* Add new sample to ICMP data graph */
-// function getRoundTimeDataGraph() {
-	// console.log("getRoundTimeDataGraph");
-	
-	// /* Read file to obtain new sample */
-	// var file = fs.readFileSync('/home/DCWeb/public/tables/roundtime.json', 'utf8');
-	// var newdata = JSON.parse(file);
-	
-	// /* Read file to obtain ICMP data graph */
-	// var filegraph = fs.readFileSync('/home/DCWeb/public/tables/roundtimegraph.json', 'utf8');
-	// var datagraph = JSON.parse(filegraph);
-	
-	// datagraph.push(newdata);
-	
-	// while (datagraph.length > 7) {
-		// datagraph.shift();
-	// }
-	
-	// /* update filegraph */
-	// fs.unlinkSync('/home/DCWeb/public/tables/roundtimegraph.json');
-	// var contents = fs.writeFileSync('/home/DCWeb/public/tables/roundtimegraph.json', JSON.stringify(datagraph));	
-		
-	// return datagraph;
-// }
 
 module.exports = returnRouter;

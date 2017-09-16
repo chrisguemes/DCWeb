@@ -207,6 +207,13 @@ io.on('connection', function(socket) {
 		/* Send info to dashboard through wscli.js */
 		io.sockets.emit('upd_configuration_rsp', config);
 	});
+
+	socket.on('upd_gprs_status_req', function(data) {
+		console.log('Node: upd_gprs_status_req req');
+		
+		console.log("WHAT TO DO NOW???????????");
+		console.log(data)
+	});
 	
 	socket.on('client-req-lnx', function(data) {
 		console.log('Node: client-req-lnx');
