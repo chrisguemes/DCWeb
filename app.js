@@ -37,31 +37,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Enable ROUTES ------------------------------------------
 app.use('/', routes);
 
-
-
-var formatBytes = function(bytes, precision) {
-  var kilobyte = 1024;
-  var megabyte = kilobyte * 1024;
-  var gigabyte = megabyte * 1024;
-  var terabyte = gigabyte * 1024;
-
-  if ((bytes >= 0) && (bytes < kilobyte)) {
-    return bytes + ' B   ';
-  } else if ((bytes >= kilobyte) && (bytes < megabyte)) {
-    return (bytes / kilobyte).toFixed(precision) + ' KB  ';
-  } else if ((bytes >= megabyte) && (bytes < gigabyte)) {
-    return (bytes / megabyte).toFixed(precision) + ' MB  ';
-  } else if ((bytes >= gigabyte) && (bytes < terabyte)) {
-    return (bytes / gigabyte).toFixed(precision) + ' GB  ';
-  } else if (bytes >= terabyte) {
-    return (bytes / terabyte).toFixed(precision) + ' TB  ';
-  } else {
-    return bytes + ' B   ';
-  }
-};
-
-
-
 io.on('connection', function(socket) {  
 	console.log('Alguien se ha conectado con Sockets');
 	socket.emit('welcome');
@@ -225,16 +200,28 @@ io.on('connection', function(socket) {
 	socket.on('swap_gprs_status_req', function(data) {
 		console.log('Node: swap_gprs_status_req req');
 		console.log(data)
+
+		var plc_cmd = []
 		
 		if (data == true) {
 			console.log("set")
 			var value = 1
+			plc_cmd = ["webcmd:1"]
 			var file = fs.writeFileSync('/home/cfg/gprs_en', value, 'utf8');
 		} else {
 			console.log("reset")
 			var value = 0
+			plc_cmd = ["webcmd:2"]
 			var file = fs.writeFileSync('/home/cfg/gprs_en', value, 'utf8');
 		}
+		
+		/* Send Command to Linux : receive event in PLCManager application */
+		unirest.post('http://127.0.0.1:5060')
+		.headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+		.send(plc_cmd)
+		.end(function (response) {
+			console.log(response.body);
+		});
 	});
 
 	socket.on('swap_sniffer_status_req', function(data) {

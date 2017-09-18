@@ -44,18 +44,18 @@ var returnRouter = function(io) {
 			io.sockets.emit('updrefreshdevlist', data);
 		}	
 
-		/* LNXCMD_GPRS_ON */
+		/* LNXCMD_REFRESH_GRPS */
 		if (obj["0"].lnxcmd == 0x41) {
-			console.log("ROUTES: LNXCMD_GPRS_ON");
-			var data = "ON";
-			io.sockets.emit('updrefreshgprsstatus', data);
-		}	
+			console.log("ROUTES: LNXCMD_REFRESH_GPRS");
+			var data = fs.readFileSync('/home/cfg/gprs_en', 'utf8');
+			io.sockets.emit('refreshGPRSstatus', data);
+		}
 
-		/* LNXCMD_GPRS_OFF */
+		/* LNXCMD_REFRESH_SNIFFER */
 		if (obj["0"].lnxcmd == 0x42) {
-			console.log("ROUTES: LNXCMD_GPRS_OFF");
-			var data = "OFF";
-			io.sockets.emit('updrefreshgprsstatus', data);
+			console.log("ROUTES: LNXCMD_REFRESH_SNIFFER");
+			var data = fs.readFileSync('/home/cfg/sniffer_en', 'utf8');
+			io.sockets.emit('refreshSnifferstatus', data);
 		}			
 	});
 
