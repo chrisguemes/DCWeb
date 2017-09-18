@@ -70,64 +70,73 @@ io.on('connection', function(socket) {
 		console.log('Node: upd_statistics_info req');
 		
 		var stats = []
+
+		if (fs.existsSync('/sys/class/net/eth0/statistics/rx_packets')) {
+		    /* Get all statistics from system files */
+			/* ETH0 IFACE */
+			var file = fs.readFileSync('/sys/class/net/eth0/statistics/rx_packets', 'utf8');
+			stats.push(file)
+			file = fs.readFileSync('/sys/class/net/eth0/statistics/rx_errors', 'utf8');
+			stats.push(file)
+			file = fs.readFileSync('/sys/class/net/eth0/statistics/rx_dropped', 'utf8');
+			stats.push(file)
+			file = fs.readFileSync('/sys/class/net/eth0/statistics/rx_over_errors', 'utf8');
+			stats.push(file)
+			file = fs.readFileSync('/sys/class/net/eth0/statistics/rx_frame_errors', 'utf8');
+			stats.push(file)
+			file = fs.readFileSync('/sys/class/net/eth0/statistics/tx_packets', 'utf8');
+			stats.push(file)
+			file = fs.readFileSync('/sys/class/net/eth0/statistics/tx_errors', 'utf8');
+			stats.push(file)
+			file = fs.readFileSync('/sys/class/net/eth0/statistics/tx_dropped', 'utf8');
+			stats.push(file)
+			file = fs.readFileSync('/sys/class/net/eth0/statistics/tx_fifo_errors', 'utf8');
+			stats.push(file)
+			file = fs.readFileSync('/sys/class/net/eth0/statistics/tx_carrier_errors', 'utf8');
+			stats.push(file)
+			file = fs.readFileSync('/sys/class/net/eth0/statistics/collisions', 'utf8');
+			stats.push(file)
+			file = fs.readFileSync('/sys/class/net/eth0/statistics/rx_bytes', 'utf8');
+			stats.push(file)
+			file = fs.readFileSync('/sys/class/net/eth0/statistics/tx_bytes', 'utf8');
+			stats.push(file)
+		} else {
+			stats.push(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+		}
 		
-		/* Get all statistics from system files */
-		/* ETH0 IFACE */
-		var file = fs.readFileSync('/sys/class/net/eth0/statistics/rx_packets', 'utf8');
-		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/eth0/statistics/rx_errors', 'utf8');
-		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/eth0/statistics/rx_dropped', 'utf8');
-		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/eth0/statistics/rx_over_errors', 'utf8');
-		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/eth0/statistics/rx_frame_errors', 'utf8');
-		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/eth0/statistics/tx_packets', 'utf8');
-		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/eth0/statistics/tx_errors', 'utf8');
-		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/eth0/statistics/tx_dropped', 'utf8');
-		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/eth0/statistics/tx_fifo_errors', 'utf8');
-		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/eth0/statistics/tx_carrier_errors', 'utf8');
-		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/eth0/statistics/collisions', 'utf8');
-		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/eth0/statistics/rx_bytes', 'utf8');
-		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/eth0/statistics/tx_bytes', 'utf8');
-		stats.push(file)
-		/* PPP0 IFACE */
-		file = fs.readFileSync('/sys/class/net/ppp0/statistics/rx_packets', 'utf8');
-		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/ppp0/statistics/rx_errors', 'utf8');
-		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/ppp0/statistics/rx_dropped', 'utf8');
-		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/ppp0/statistics/rx_over_errors', 'utf8');
-		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/ppp0/statistics/rx_frame_errors', 'utf8');
-		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/ppp0/statistics/tx_packets', 'utf8');
-		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/ppp0/statistics/tx_errors', 'utf8');
-		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/ppp0/statistics/tx_dropped', 'utf8');
-		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/ppp0/statistics/tx_fifo_errors', 'utf8');
-		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/ppp0/statistics/tx_carrier_errors', 'utf8');
-		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/ppp0/statistics/collisions', 'utf8');
-		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/ppp0/statistics/rx_bytes', 'utf8');
-		stats.push(file)
-		file = fs.readFileSync('/sys/class/net/ppp0/statistics/tx_bytes', 'utf8');
-		stats.push(file)
+		if (fs.existsSync('/sys/class/net/ppp0/statistics/rx_packets')) {		
+			/* PPP0 IFACE */
+			file = fs.readFileSync('/sys/class/net/ppp0/statistics/rx_packets', 'utf8');
+			stats.push(file)
+			file = fs.readFileSync('/sys/class/net/ppp0/statistics/rx_errors', 'utf8');
+			stats.push(file)
+			file = fs.readFileSync('/sys/class/net/ppp0/statistics/rx_dropped', 'utf8');
+			stats.push(file)
+			file = fs.readFileSync('/sys/class/net/ppp0/statistics/rx_over_errors', 'utf8');
+			stats.push(file)
+			file = fs.readFileSync('/sys/class/net/ppp0/statistics/rx_frame_errors', 'utf8');
+			stats.push(file)
+			file = fs.readFileSync('/sys/class/net/ppp0/statistics/tx_packets', 'utf8');
+			stats.push(file)
+			file = fs.readFileSync('/sys/class/net/ppp0/statistics/tx_errors', 'utf8');
+			stats.push(file)
+			file = fs.readFileSync('/sys/class/net/ppp0/statistics/tx_dropped', 'utf8');
+			stats.push(file)
+			file = fs.readFileSync('/sys/class/net/ppp0/statistics/tx_fifo_errors', 'utf8');
+			stats.push(file)
+			file = fs.readFileSync('/sys/class/net/ppp0/statistics/tx_carrier_errors', 'utf8');
+			stats.push(file)
+			file = fs.readFileSync('/sys/class/net/ppp0/statistics/collisions', 'utf8');
+			stats.push(file)
+			file = fs.readFileSync('/sys/class/net/ppp0/statistics/rx_bytes', 'utf8');
+			stats.push(file)
+			file = fs.readFileSync('/sys/class/net/ppp0/statistics/tx_bytes', 'utf8');
+			stats.push(file)
+		} else {
+			stats.push(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+		}
 		
-		//console.log(stats);
+		console.log(stats);
 		
 		/* Send info to dashboard through wscli.js */
 		io.sockets.emit('upd_statistics_rsp', stats);
@@ -204,15 +213,43 @@ io.on('connection', function(socket) {
 		var file = fs.readFileSync('/home/cfg/maxjoinwaittime', 'utf8');
 		config.push(file)
 
+		var file = fs.readFileSync('/home/cfg/gprs_en', 'utf8');
+		config.push(file)
+		var file = fs.readFileSync('/home/cfg/sniffer_en', 'utf8');
+		config.push(file)
+
 		/* Send info to dashboard through wscli.js */
 		io.sockets.emit('upd_configuration_rsp', config);
 	});
 
-	socket.on('upd_gprs_status_req', function(data) {
-		console.log('Node: upd_gprs_status_req req');
-		
-		console.log("WHAT TO DO NOW???????????");
+	socket.on('swap_gprs_status_req', function(data) {
+		console.log('Node: swap_gprs_status_req req');
 		console.log(data)
+		
+		if (data == true) {
+			console.log("set")
+			var value = 1
+			var file = fs.writeFileSync('/home/cfg/gprs_en', value, 'utf8');
+		} else {
+			console.log("reset")
+			var value = 0
+			var file = fs.writeFileSync('/home/cfg/gprs_en', value, 'utf8');
+		}
+	});
+
+	socket.on('swap_sniffer_status_req', function(data) {
+		console.log('Node: swap_sniffer_status_req req');
+		console.log(data)
+		
+		if (data == true) {
+			console.log("set")
+			var value = 1
+			var file = fs.writeFileSync('/home/cfg/sniffer_en', value, 'utf8');
+		} else {
+			console.log("reset")
+			var value = 0
+			var file = fs.writeFileSync('/home/cfg/sniffer_en', value, 'utf8');
+		}
 	});
 	
 	socket.on('client-req-lnx', function(data) {

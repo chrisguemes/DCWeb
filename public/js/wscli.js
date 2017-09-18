@@ -44,7 +44,12 @@ function upd_configuration_req(data) {
 	websocket.emit('upd_configuration_req');
 }
 
-function upd_gprs_status_req(data) {
-	console.log("WSCLI: Update GPRS status request");
-	websocket.emit('upd_gprs_status_req', data);
+function swap_gprs_status_req(data) {
+	console.log("WSCLI: Swap GPRS status request");
+	websocket.emit('swap_gprs_status_req', data.checked);
+}
+
+function swap_sniffer_status_req(data) {
+	console.log("WSCLI: Swap PLC Sniffer status request");
+	websocket.emit('swap_sniffer_status_req', data.checked);
 }
