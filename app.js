@@ -227,16 +227,28 @@ io.on('connection', function(socket) {
 	socket.on('swap_sniffer_status_req', function(data) {
 		console.log('Node: swap_sniffer_status_req req');
 		console.log(data)
+
+		var plc_cmd = []
 		
 		if (data == true) {
 			console.log("set")
 			var value = 1
+			plc_cmd = ["webcmd:3"]
 			var file = fs.writeFileSync('/home/cfg/sniffer_en', value, 'utf8');
 		} else {
 			console.log("reset")
 			var value = 0
+			plc_cmd = ["webcmd:4"]
 			var file = fs.writeFileSync('/home/cfg/sniffer_en', value, 'utf8');
 		}
+		
+		/* Send Command to Linux : receive event in PLCManager application */
+		unirest.post('http://127.0.0.1:5060')
+		.headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+		.send(plc_cmd)
+		.end(function (response) {
+			console.log(response.body);
+		});
 	});
 	
 	socket.on('client-req-lnx', function(data) {

@@ -4,6 +4,12 @@ websocket.on('welcome', function(data) {
   console.log('WSCLI: Welcome message');
 })
 
+websocket.on('upd_refreshdevlist', function(data) {  
+  console.log("WSCLI: Refresh Device List");
+  console.log(data);
+  refreshDeviceTable(data);
+})
+
 websocket.on('upd_statistics_rsp', function(data) {  
   console.log("WSCLI: Update statistics response");
   console.log(data);
@@ -28,10 +34,16 @@ websocket.on('upd_configuration_rsp', function(data) {
   refreshConfiguration(data);
 })
 
-websocket.on('updrefreshgprsstatus', function(data) {  
+websocket.on('upd_gprs_refresh_rsp', function(data) {  
   console.log("WSCLI: Update GPRS module response");
   console.log(data);
   refreshGPRSstatus(data);
+})
+
+websocket.on('upd_sniffer_refresh_rsp', function(data) {  
+  console.log("WSCLI: Update SNIFFER module response");
+  console.log(data);
+  refreshSnifferstatus(data);
 })
 
 function upd_statistics_req(data) {

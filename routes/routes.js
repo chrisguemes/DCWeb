@@ -41,21 +41,21 @@ var returnRouter = function(io) {
 			console.log("ROUTES: LNXCMD_REFRESH_DEVLIST");
 			var file = fs.readFileSync('/home/DCWeb/public/tables/devlist.json', 'utf8');
 			var data = JSON.parse(file);
-			io.sockets.emit('updrefreshdevlist', data);
+			io.sockets.emit('upd_refreshdevlist', data);
 		}	
 
 		/* LNXCMD_REFRESH_GRPS */
 		if (obj["0"].lnxcmd == 0x41) {
 			console.log("ROUTES: LNXCMD_REFRESH_GPRS");
 			var data = fs.readFileSync('/home/cfg/gprs_en', 'utf8');
-			io.sockets.emit('refreshGPRSstatus', data);
+			io.sockets.emit('upd_gprs_refresh_rsp', data);
 		}
 
 		/* LNXCMD_REFRESH_SNIFFER */
 		if (obj["0"].lnxcmd == 0x42) {
 			console.log("ROUTES: LNXCMD_REFRESH_SNIFFER");
 			var data = fs.readFileSync('/home/cfg/sniffer_en', 'utf8');
-			io.sockets.emit('refreshSnifferstatus', data);
+			io.sockets.emit('upd_sniffer_refresh_rsp', data);
 		}			
 	});
 
