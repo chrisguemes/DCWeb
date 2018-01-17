@@ -1,6 +1,8 @@
 var express = require('express');
 var fs = require('fs');
 var router = express.Router();
+var formidable = require('formidable');
+var path = require('path');
 
 var returnRouter = function(io) {
 	// GET home page
@@ -24,6 +26,24 @@ var returnRouter = function(io) {
 	// Configuration page
 	router.get('/configuration.html', function(req, res) {
 		res.render('configuration', { title: 'G3' });
+	});
+	
+	router.post('/upload', function(req, res){
+		console.log('POST Upload Recibido...');
+		var form = new formidable.IncomingForm();
+
+		form.parse(req);
+
+		form.on('fileBegin', function (name, file){		
+			file.path = "./uploads/"+file.name;
+		});
+
+		form.on('file', function (name, file){
+			console.log('Uploaded ' + file.name);
+		});
+
+		res.render('devices', { title: 'G3' });
+
 	});
 
 	// POST REST-API from linux application

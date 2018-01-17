@@ -99,6 +99,31 @@ h3, h4 {
 }
 
 /*Buttons*/
+.btn:focus, .upload-btn:focus{
+  outline: 0 !important;
+}
+
+.upload-btn {
+  color: #ffffff;
+  font-size: 16px;
+  background-color: #F89406;
+  border: none;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.upload-btn:hover,
+.upload-btn:focus,
+.upload-btn:active,
+.upload-btn.active {
+  color: #ffffff;
+  background-color: #FA8900;
+  border: none;
+}
+
+#upload-input {
+  display: none;
+}
 
 a.btn:hover,
 button:hover {
