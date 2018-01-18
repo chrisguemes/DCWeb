@@ -7,8 +7,8 @@ var bodyParser = require('body-parser');
 var partials = require('express-partials');
 var fs = require('fs');
 var formidable = require('formidable');
-//var pusage = require('pidusage')
-//var os = require('os-utils');
+var pusage = require('pidusage')
+var os = require('os-utils');
 
 // Create Express application -----------------------------
 var app = express();

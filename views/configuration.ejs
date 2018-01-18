@@ -246,11 +246,11 @@
 									<p style="margin-top: 5%">...</p>
 								</div>
 							</div>
-							<div class="row" padding="25">		
-								<div class="progress" margin="50px">
+							<div class="row">		
+								<div class="progress">
 									<div class="progress-bar progress-bar-info" role="progressbar"></div>
 								</div>
-								<input id="upload-input" type="file" name="uploads[]" multiple="multiple">
+								<input id="upload-input" type="file" name="uploads[]" style="display:none">
 							</div>				
 					</div><!-- /.panel-body -->
 			</div><!-- /.panel -->
@@ -384,7 +384,7 @@
 		  processData: false,
 		  contentType: false,
 		  success: function(data){
-			  console.log('upload successful!\n' + data);
+			  console.log('upload successful!\n');
 		  },
 		  xhr: function() {
 			// create an XMLHttpRequest
