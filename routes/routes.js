@@ -3,8 +3,6 @@ var fs = require('fs');
 var router = express.Router();
 var formidable = require('formidable');
 var path = require('path');
-// Linux Sockets
-var unirest = require('unirest');
 
 var returnRouter = function(io) {
 	// GET home page
@@ -39,13 +37,34 @@ var returnRouter = function(io) {
 		form.on('fileBegin', function (name, file){		
 			file.path = "./uploads/"+file.name;
 			console.log('Start upload... ' + file.path);
+			fs.unlink("/home/cfg/fu_en", function (err) {
+			  	if(err) {
+			        return console.log('Fu_en file not exist');
+			    }
+			  	console.log('fu_en deleted!');
+			});
 		});
 
 		form.on('file', function (name, file){
 			console.log('Uploaded ' + file.name);
 			// Update cfg file to enable FU
-			var value = 1
-			var file = fs.writeFileSync('/home/cfg/fu_en', value, 'utf8');
+			var filepath = '/home/DCWeb/uploads/' + file.name;
+			console.log(filepath);
+
+			fs.writeFile("/home/cfg/fu_en", filepath, function(err) {
+			    if(err) {
+			        return console.log(err);
+			    }
+
+			    fs.chmod("/home/cfg/fu_en", 0777, function(err) {
+			    	if(err) {
+				        console.log('Fu_en file: ERROR in file permissions');
+				    }
+                    console.log('Fu_en file: Changed file permissions');
+                });
+
+			    console.log("The file was saved!");
+			}); 
 		});
 
 		res.render('configuration', { title: 'G3' });
@@ -82,6 +101,13 @@ var returnRouter = function(io) {
 			console.log("ROUTES: LNXCMD_REFRESH_SNIFFER");
 			var data = fs.readFileSync('/home/cfg/sniffer_en', 'utf8');
 			io.sockets.emit('upd_sniffer_refresh_rsp', data);
+		}
+
+		/* LNXCMD_REFRESH_FU */
+		if (obj["0"].lnxcmd == 0x43) {
+			console.log("ROUTES: LNXCMD_REFRESH_FU");
+			var data = fs.readFileSync('/home/cfg/fu_st', 'utf8');
+			io.sockets.emit('upd_fu_refresh_rsp', data);
 		}			
 	});
 

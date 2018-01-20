@@ -46,6 +46,12 @@ websocket.on('upd_sniffer_refresh_rsp', function(data) {
   refreshSnifferstatus(data);
 })
 
+websocket.on('upd_fu_refresh_rsp', function(data) {  
+  console.log("WSCLI: Update Firmware Upgrade status");
+  console.log(data);
+  refreshFUstatus(data);
+})
+
 function upd_statistics_req(data) {
 	console.log("WSCLI: Update statistics request");
 	websocket.emit('upd_statistics_req');
