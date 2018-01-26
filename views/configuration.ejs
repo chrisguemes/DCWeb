@@ -17,36 +17,20 @@
 				<div class="panel-heading">Information</div>
 					<div class="panel-body">
 						<div class="row">
-								<div class="col-md-2">
-									<label>Product name</label>
-								</div>
-								<div class="col-md-10">						
-									<p>G3 Gateway</p>
-								</div>
+							<div class="col-md-2"><label>Product name</label></div>
+							<div class="col-md-10"><p>G3 Gateway</p></div>
 						</div>				
 						<div class="row">
-								<div class="col-md-2">
-									<label>OS version</label>
-								</div>
-								<div class="col-md-10" id="id_sys_info">						
-									<p>Linux aria 4.4.16 #3 Thu Sep 29 21:43:36 CEST 2016 armv5tejl GNU/Linux</p>
-								</div>
+							<div class="col-md-2"><label>OS version</label></div>
+							<div class="col-md-10" id="id_sys_info"><p>Linux aria 4.4.16 </p></div>
 						</div>
 						<div class="row">
-								<div class="col-md-2">
-									<label>Application</label>
-								</div>
-								<div class="col-md-10" id="id_app_info">						
-									<p>PLC Manager v1.0</p>
-								</div>
+							<div class="col-md-2"><label>Application</label></div>
+							<div class="col-md-10" id="id_app_info"><p>PLC Manager v1.0</p></div>
 						</div>		
 						<div class="row">
-								<div class="col-md-2">
-									<label>Startup Time</label>
-								</div>
-								<div class="col-md-10" id="id_startup_time">						
-									<p>0</p>
-								</div>
+							<div class="col-md-2"><label>Startup Time</label></div>
+							<div class="col-md-10" id="id_startup_time"><p>0</p></div>
 						</div>				
 					</div><!-- /.panel-body -->
 			</div><!-- /.panel -->
@@ -55,91 +39,115 @@
 
 	<div class="row">
 		<div class="col-lg-12">
-			<div class="panel panel-success">
-				<div class="panel-heading">PPP Interface</div>
-					<div class="panel-body">
-							<div class="row">
-								<div class="col-md-3">
-									<label>MAC Address (MAC)</label>
+			<div class="panel panel-info">
+				<div class="panel-heading">Gateway Interfaces</div>
+				<div class="panel-body">
+					<div class="panel-group">
+
+						<div class="panel panel-success">
+							<div class="panel-heading">ETH0</div>
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-md-3"><label>IPv4</label></div>
+									<div class="col-md-4" id="id_eth0_ipv4"><p>0</p></div>
 								</div>
-								<div class="col-md-4" id="id_ppp_mac">
-									<p>0</p>
+								<div class="row">						
+									<div class="col-md-3"><label>Unique Local Address (ULA)</label></div>
+									<div class="col-md-4" id="id_eth0_ula"><p>0</p></div>
 								</div>
-							</div>
-							<div class="row">						
-								<div class="col-md-3">
-									<label>Unique Local Address (ULA)</label>
-								</div>
-								<div class="col-md-4" id="id_ppp_ula">						
-									<p>0</p>
-								</div>
-							</div>
-							<div class="row">						
-								<div class="col-md-3">
-									<label>Link Local Address (LLA)</label>
-								</div>
-								<div class="col-md-4" id="id_ppp_lla">						
-									<p>0</p>
+								<div class="row">						
+									<div class="col-md-3"><label>Link Local Address (LLA)</label></div>
+									<div class="col-md-4" id="id_eth0_lla"><p>0</p></div>
 								</div>
 							</div>
-							<div class="row">
-								<div class="col-md-3">
-									<label>Routing address</label>
+						</div><!-- /.panel-success -->
+
+						<div class="panel panel-success">
+							<div class="panel-heading">PPP0</div>
+							<div class="panel-body">
+								<div class="row">						
+									<div class="col-md-3"><label>Unique Local Address (ULA)</label></div>
+									<div class="col-md-4" id="id_ppp0_ula"><p>0</p></div>
 								</div>
-								<div class="col-md-4" id="id_ppp_routing">
-									<p>0</p>
+								<div class="row">						
+									<div class="col-md-3"><label>Link Local Address (LLA)</label></div>
+									<div class="col-md-4" id="id_ppp0_lla"><p>0</p></div>
 								</div>
-						</div>				
-					</div><!-- /.panel-body -->
+							</div>
+						</div><!-- /.panel-success -->
+
+						<div class="panel panel-success">
+							<div class="panel-heading">ZT0</div>
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-md-3"><label>IPv4</label></div>
+									<div class="col-md-4" id="id_zt0_ipv4"><p>0</p></div>
+								</div>
+								<div class="row">						
+									<div class="col-md-3"><label>Unique Local Address (ULA)</label></div>
+									<div class="col-md-4" id="id_zt0_ula"><p>0</p></div>
+								</div>
+								<div class="row">						
+									<div class="col-md-3"><label>Link Local Address (LLA)</label></div>
+									<div class="col-md-4" id="id_zt0_lla"><p>0</p></div>
+								</div>
+							</div>
+						</div><!-- /.panel-success -->
+
+						<div class="panel panel-success">
+							<div class="panel-heading">PLC PPP</div>
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-md-3"><label>MAC Address (MAC)</label></div>
+									<div class="col-md-4" id="id_plc_ppp_mac"><p>0</p></div>
+								</div>
+								<div class="row">						
+									<div class="col-md-3"><label>Unique Local Address (ULA)</label></div>
+									<div class="col-md-4" id="id_plc_ppp_ula"><p>0</p></div>
+								</div>
+								<div class="row">						
+									<div class="col-md-3"><label>Link Local Address (LLA)</label></div>
+									<div class="col-md-4" id="id_plc_ppp_lla"><p>0</p></div>
+								</div>
+								<div class="row">
+									<div class="col-md-3"><label>Routing address</label></div>
+									<div class="col-md-4" id="id_plc_ppp_routing"><p>0</p></div>
+								</div>	
+							</div>
+						</div><!-- /.panel-success -->	
+
+						<div class="panel panel-success">
+							<div class="panel-heading">PLC G3</div>
+							<div class="panel-body">
+								<div class="row">						
+									<div class="col-md-3"><label>Unique Local Address (ULA)</label></div>
+									<div class="col-md-4" id="id_plc_g3_ula"><p>0</p></div>
+								</div>
+								<div class="row">						
+									<div class="col-md-3"><label>Link Local Address (LLA)</label></div>
+									<div class="col-md-4" id="id_plc_g3_lla"><p>0</p></div>
+								</div>
+								<div class="row">						
+									<div class="col-md-3"><label>Network Prefix</label></div>
+									<div class="col-md-4" id="id_plc_g3_prefix"><p>0</p></div>
+								</div>
+								<div class="row">
+									<div class="col-md-3"><label>Routing address</label></div>
+									<div class="col-md-4" id="id_plc_g3_routing"><p>0</p></div>
+								</div>	
+							</div>
+						</div><!-- /.panel-success -->	
+
+					</div><!-- /.panel-group -->		
+				</div><!-- /.panel-body -->
 			</div><!-- /.panel -->
 		</div><!-- /.col-->
 	</div><!-- /.row -->
 
-	<div class="row">
-		<div class="col-lg-12">
-			<div class="panel panel-success">
-				<div class="panel-heading">PLC Interface</div>
-					<div class="panel-body">
-							<div class="row">						
-								<div class="col-md-3">
-									<label>Unique Local Address (ULA)</label>
-								</div>
-								<div class="col-md-4" id="id_plc_ula">						
-									<p>0</p>
-								</div>
-							</div>
-							<div class="row">						
-								<div class="col-md-3">
-									<label>Link Local Address (LLA)</label>
-								</div>
-								<div class="col-md-4" id="id_plc_lla">						
-									<p>0</p>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-3">
-									<label>Network prefix</label>
-								</div>
-								<div class="col-md-4" id="id_plc_prefix">
-									<p>0</p>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-3">
-									<label>Routing address</label>
-								</div>
-								<div class="col-md-4" id="id_plc_routing">
-									<p>0</p>
-								</div>
-						</div>				
-					</div><!-- /.panel-body -->
-			</div><!-- /.panel -->
-		</div><!-- /.col-->
-	</div><!-- /.row -->
 
 	<div class="row">
 		<div class="col-lg-12">
-			<div class="panel panel-warning">
+			<div class="panel panel-info">
 				<div class="panel-heading">G3 network</div>
 					<div class="panel-body">
 							<div class="row">						
@@ -189,7 +197,7 @@
 
 	<div class="row">
 		<div class="col-lg-12">
-			<div class="panel panel-warning">
+			<div class="panel panel-info">
 				<div class="panel-heading">GPRS</div>
 					<div class="panel-body">
 							<div class="row">		
@@ -212,7 +220,7 @@
 
 	<div class="row">
 		<div class="col-lg-12">
-			<div class="panel panel-warning">
+			<div class="panel panel-info">
 				<div class="panel-heading">PLC Sniffer</div>
 					<div class="panel-body">
 							<div class="row">		
@@ -301,15 +309,15 @@
 		var appinfo = data[6] + " " + data[7] 
 		$('#id_app_info').html(appinfo);
 
-		$('#id_ppp_mac').html(data[8]);
-		$('#id_ppp_ula').html(data[9]);
-		$('#id_ppp_lla').html(data[10]);
-		$('#id_ppp_routing').html(data[11]);
+		$('#id_plc_ppp_mac').html(data[8]);
+		$('#id_plc_ppp_ula').html(data[9]);
+		$('#id_plc_ppp_lla').html(data[10]);
+		$('#id_plc_ppp_routing').html(data[11]);
 
-		$('#id_plc_ula').html(data[12]);
-		$('#id_plc_lla').html(data[13]);
-		$('#id_plc_prefix').html(data[14]);
-		$('#id_plc_routing').html(data[15]);
+		$('#id_plc_g3_ula').html(data[12]);
+		$('#id_plc_g3_lla').html(data[13]);
+		$('#id_plc_g3_prefix').html(data[14]);
+		$('#id_plc_g3_routing').html(data[15]);
 
 		$('#id_pan_id').html(data[16]);
 		$('#id_sec_psk').html(data[17]);
@@ -319,6 +327,17 @@
 
 		refreshGPRSstatus(data[21]);
 		refreshSnifferstatus(data[22]);
+
+		$('#id_eth0_ipv4').html(data[23]);
+		$('#id_eth0_ula').html(data[24]);
+		$('#id_eth0_lla').html(data[25]);
+
+		$('#id_ppp0_ula').html(data[27]);
+		$('#id_ppp0_lla').html(data[28]);
+
+		$('#id_zt0_ipv4').html(data[29]);
+		$('#id_zt0_ula').html(data[30]);
+		$('#id_zt0_lla').html(data[31]);
 	}
 	
 	function refreshGPRSstatus(data) {

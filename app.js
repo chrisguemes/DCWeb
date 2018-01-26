@@ -194,6 +194,26 @@ io.on('connection', function(socket) {
 		var file = fs.readFileSync('/home/cfg/sniffer_en', 'utf8');
 		config.push(file)
 
+		var file = fs.readFileSync('/home/cfg/eth0', 'utf8');
+		var ifaces = file.toString().split(';');
+		console.log(ifaces[0]);console.log(ifaces[1]);console.log(ifaces[2]);
+		config.push(ifaces[0])
+		var iface = ifaces[1].split("%");
+		config.push(iface[0])
+		config.push(ifaces[2])
+		var file = fs.readFileSync('/home/cfg/ppp0', 'utf8');
+		var ifaces = file.toString().split(';');
+		config.push(ifaces[0])
+		var iface = ifaces[1].split("%");
+		config.push(iface[0])
+		config.push(ifaces[2])
+		var file = fs.readFileSync('/home/cfg/zt0', 'utf8');
+		var ifaces = file.toString().split(';');
+		config.push(ifaces[0])
+		var iface = ifaces[1].split("%");
+		config.push(iface[0])
+		config.push(ifaces[2])
+
 		/* Send info to dashboard through wscli.js */
 		io.sockets.emit('upd_configuration_rsp', config);
 	});
