@@ -309,15 +309,15 @@
 		var appinfo = data[6] + " " + data[7] 
 		$('#id_app_info').html(appinfo);
 
-		$('#id_plc_ppp_mac').html(data[8]);
-		$('#id_plc_ppp_ula').html(data[9]);
-		$('#id_plc_ppp_lla').html(data[10]);
-		$('#id_plc_ppp_routing').html(data[11]);
+		$('#id_plc_ppp_mac').html(data[8].toUpperCase());
+		$('#id_plc_ppp_ula').html(data[9].toUpperCase());
+		$('#id_plc_ppp_lla').html(data[10].toUpperCase());
+		$('#id_plc_ppp_routing').html(data[11].toUpperCase());
 
-		$('#id_plc_g3_ula').html(data[12]);
-		$('#id_plc_g3_lla').html(data[13]);
-		$('#id_plc_g3_prefix').html(data[14]);
-		$('#id_plc_g3_routing').html(data[15]);
+		$('#id_plc_g3_ula').html(data[12].toUpperCase());
+		$('#id_plc_g3_lla').html(data[13].toUpperCase());
+		$('#id_plc_g3_prefix').html(data[14].toUpperCase());
+		$('#id_plc_g3_routing').html(data[15].toUpperCase());
 
 		$('#id_pan_id').html(data[16]);
 		$('#id_sec_psk').html(data[17]);
@@ -328,16 +328,16 @@
 		refreshGPRSstatus(data[21]);
 		refreshSnifferstatus(data[22]);
 
-		$('#id_eth0_ipv4').html(data[23]);
-		$('#id_eth0_ula').html(data[24]);
-		$('#id_eth0_lla').html(data[25]);
+		$('#id_eth0_ipv4').html(data[23].toUpperCase());
+		$('#id_eth0_lla').html(data[24].toUpperCase());
+		$('#id_eth0_ula').html(data[25].toUpperCase());
 
-		$('#id_ppp0_ula').html(data[27]);
-		$('#id_ppp0_lla').html(data[28]);
+		$('#id_ppp0_lla').html(data[26].toUpperCase());
+		$('#id_ppp0_ula').html(data[27].toUpperCase());
 
-		$('#id_zt0_ipv4').html(data[29]);
-		$('#id_zt0_ula').html(data[30]);
-		$('#id_zt0_lla').html(data[31]);
+		$('#id_zt0_ipv4').html(data[28].toUpperCase());
+		$('#id_zt0_lla').html(data[29].toUpperCase());
+		$('#id_zt0_ula').html(data[30].toUpperCase());
 	}
 	
 	function refreshGPRSstatus(data) {

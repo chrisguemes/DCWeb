@@ -9,6 +9,7 @@ var fs = require('fs');
 var formidable = require('formidable');
 var pusage = require('pidusage')
 var os = require('os-utils');
+var ipaddr = require('ipaddr.js');
 
 // Create Express application -----------------------------
 var app = express();
@@ -112,7 +113,7 @@ io.on('connection', function(socket) {
 			stats.push(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 		}
 		
-		console.log(stats);
+		//console.log(stats);
 		
 		/* Send info to dashboard through wscli.js */
 		io.sockets.emit('upd_statistics_rsp', stats);
@@ -144,75 +145,140 @@ io.on('connection', function(socket) {
 		/* Get all configuration from home/cfg files */
 		var file = fs.readFileSync('/home/cfg/sysname', 'utf8');
 		config.push(file)
-		var file = fs.readFileSync('/home/cfg/sysnodename', 'utf8');
+		file = fs.readFileSync('/home/cfg/sysnodename', 'utf8');
 		config.push(file)
-		var file = fs.readFileSync('/home/cfg/sysrelease', 'utf8');
+		file = fs.readFileSync('/home/cfg/sysrelease', 'utf8');
 		config.push(file)
-		var file = fs.readFileSync('/home/cfg/sysversion', 'utf8');
+		file = fs.readFileSync('/home/cfg/sysversion', 'utf8');
 		config.push(file)
-		var file = fs.readFileSync('/home/cfg/sysmachine', 'utf8');
+		file = fs.readFileSync('/home/cfg/sysmachine', 'utf8');
 		config.push(file)
-		var file = fs.readFileSync('/home/cfg/startuptime', 'utf8');
-		config.push(file)
-
-		var file = fs.readFileSync('/home/cfg/appname', 'utf8');
-		config.push(file)
-		var file = fs.readFileSync('/home/cfg/appversion', 'utf8');
+		file = fs.readFileSync('/home/cfg/startuptime', 'utf8');
 		config.push(file)
 
-		var file = fs.readFileSync('/home/cfg/pppmacdaddress', 'utf8');
+		file = fs.readFileSync('/home/cfg/appname', 'utf8');
 		config.push(file)
-		var file = fs.readFileSync('/home/cfg/pppula', 'utf8');
-		config.push(file)
-		var file = fs.readFileSync('/home/cfg/ppplla', 'utf8');
-		config.push(file)
-		var file = fs.readFileSync('/home/cfg/routeppp', 'utf8');
+		file = fs.readFileSync('/home/cfg/appversion', 'utf8');
 		config.push(file)
 
-		var file = fs.readFileSync('/home/cfg/plcula', 'utf8');
+		file = fs.readFileSync('/home/cfg/pppmacdaddress', 'utf8');
 		config.push(file)
-		var file = fs.readFileSync('/home/cfg/plclla', 'utf8');
+		file = fs.readFileSync('/home/cfg/pppula', 'utf8');
+		if (ipaddr.isValid(file.toString())) {
+			config.push(ipaddr.parse(file.toString()).toNormalizedString())
+		} else {
+			config.push("0")
+		}
+		file = fs.readFileSync('/home/cfg/ppplla', 'utf8');
+		if (ipaddr.isValid(file.toString())) {
+			config.push(ipaddr.parse(file.toString()).toNormalizedString())
+		} else {
+			config.push("0")
+		}
+		file = fs.readFileSync('/home/cfg/routeppp', 'utf8');
+		if (ipaddr.isValid(file.toString())) {
+			config.push(ipaddr.parse(file.toString()).toNormalizedString())
+		} else {
+			config.push("0")
+		}
+
+		file = fs.readFileSync('/home/cfg/plcula', 'utf8');
+		if (ipaddr.isValid(file.toString())) {
+			config.push(ipaddr.parse(file.toString()).toNormalizedString())
+		} else {
+			config.push("0")
+		}
+		file = fs.readFileSync('/home/cfg/plclla', 'utf8');
+		if (ipaddr.isValid(file.toString())) {
+			config.push(ipaddr.parse(file.toString()).toNormalizedString())
+		} else {
+			config.push("0")
+		}
+		file = fs.readFileSync('/home/cfg/plcprefix', 'utf8');
+		if (ipaddr.isValid(file.toString())) {
+			config.push(ipaddr.parse(file.toString()).toNormalizedString())
+		} else {
+			config.push("0")
+		}
+		file = fs.readFileSync('/home/cfg/routeplc', 'utf8');
+		if (ipaddr.isValid(file.toString())) {
+			config.push(ipaddr.parse(file.toString()).toNormalizedString())
+		} else {
+			config.push("0")
+		}
+
+		file = fs.readFileSync('/home/cfg/panid', 'utf8');
 		config.push(file)
-		var file = fs.readFileSync('/home/cfg/plcprefix', 'utf8');
+		file = fs.readFileSync('/home/cfg/secpsk', 'utf8');
 		config.push(file)
-		var file = fs.readFileSync('/home/cfg/routeplc', 'utf8');
+		file = fs.readFileSync('/home/cfg/secgmk', 'utf8');
+		config.push(file)
+		file = fs.readFileSync('/home/cfg/maxhops', 'utf8');
+		config.push(file)
+		file = fs.readFileSync('/home/cfg/maxjoinwaittime', 'utf8');
 		config.push(file)
 
-		var file = fs.readFileSync('/home/cfg/panid', 'utf8');
+		file = fs.readFileSync('/home/cfg/gprs_en', 'utf8');
 		config.push(file)
-		var file = fs.readFileSync('/home/cfg/secpsk', 'utf8');
-		config.push(file)
-		var file = fs.readFileSync('/home/cfg/secgmk', 'utf8');
-		config.push(file)
-		var file = fs.readFileSync('/home/cfg/maxhops', 'utf8');
-		config.push(file)
-		var file = fs.readFileSync('/home/cfg/maxjoinwaittime', 'utf8');
+		file = fs.readFileSync('/home/cfg/sniffer_en', 'utf8');
 		config.push(file)
 
-		var file = fs.readFileSync('/home/cfg/gprs_en', 'utf8');
-		config.push(file)
-		var file = fs.readFileSync('/home/cfg/sniffer_en', 'utf8');
-		config.push(file)
-
-		var file = fs.readFileSync('/home/cfg/eth0', 'utf8');
+		file = fs.readFileSync('/home/cfg/eth0', 'utf8');
 		var ifaces = file.toString().split(';');
-		console.log(ifaces[0]);console.log(ifaces[1]);console.log(ifaces[2]);
-		config.push(ifaces[0])
 		var iface = ifaces[1].split("%");
-		config.push(iface[0])
-		config.push(ifaces[2])
-		var file = fs.readFileSync('/home/cfg/ppp0', 'utf8');
-		var ifaces = file.toString().split(';');
-		config.push(ifaces[0])
-		var iface = ifaces[1].split("%");
-		config.push(iface[0])
-		config.push(ifaces[2])
-		var file = fs.readFileSync('/home/cfg/zt0', 'utf8');
-		var ifaces = file.toString().split(';');
-		config.push(ifaces[0])
-		var iface = ifaces[1].split("%");
-		config.push(iface[0])
-		config.push(ifaces[2])
+		if (ipaddr.isValid(ifaces[0])) {
+			config.push(ipaddr.parse(ifaces[0]).toNormalizedString())
+		} else {
+			config.push("0")
+		}
+		if (ipaddr.isValid(iface[0])) {
+			config.push(ipaddr.parse(iface[0]).toNormalizedString())
+		} else {
+			config.push("0")
+		}
+		if (ipaddr.isValid(ifaces[2])) {
+			config.push(ipaddr.parse(ifaces[2]).toNormalizedString())
+		} else {
+			config.push("0")
+		}
+
+		file = fs.readFileSync('/home/cfg/ppp0', 'utf8');
+		ifaces = file.toString().split(';');
+		iface = ifaces[1].split("%");
+		// if (ipaddr.isValid(ifaces[0])) {
+			// config.push(ipaddr.parse(ifaces[0]).toNormalizedString())
+		// } else {
+			// config.push("0")
+		// }
+		if (ipaddr.isValid(iface[0])) {
+			config.push(ipaddr.parse(iface[0]).toNormalizedString())
+		} else {
+			config.push("0")
+		}
+		if (ipaddr.isValid(ifaces[2])) {
+			config.push(ipaddr.parse(ifaces[2]).toNormalizedString())
+		} else {
+			config.push("0")
+		}
+		
+		file = fs.readFileSync('/home/cfg/zt0', 'utf8');
+		ifaces = file.toString().split(';');
+		iface = ifaces[1].split("%");
+		if (ipaddr.isValid(ifaces[0])) {
+			config.push(ipaddr.parse(ifaces[0]).toNormalizedString())
+		} else {
+			config.push("0")
+		}
+		if (ipaddr.isValid(iface[0])) {
+			config.push(ipaddr.parse(iface[0]).toNormalizedString())
+		} else {
+			config.push("0")
+		}
+		if (ipaddr.isValid(ifaces[2])) {
+			config.push(ipaddr.parse(ifaces[2]).toNormalizedString())
+		} else {
+			config.push("0")
+		}
 
 		/* Send info to dashboard through wscli.js */
 		io.sockets.emit('upd_configuration_rsp', config);
