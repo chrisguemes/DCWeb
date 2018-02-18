@@ -145,37 +145,23 @@ io.on('connection', function(socket) {
 		/* Get all configuration from home/cfg files */
 		var file = fs.readFileSync('/home/cfg/sysname', 'utf8');
 		config.push(file)
-		var file = fs.readFileSync('/home/cfg/sysnodename', 'utf8');
 		file = fs.readFileSync('/home/cfg/sysnodename', 'utf8');
 		config.push(file)
-		var file = fs.readFileSync('/home/cfg/sysrelease', 'utf8');
 		file = fs.readFileSync('/home/cfg/sysrelease', 'utf8');
 		config.push(file)
-		var file = fs.readFileSync('/home/cfg/sysversion', 'utf8');
 		file = fs.readFileSync('/home/cfg/sysversion', 'utf8');
 		config.push(file)
-		var file = fs.readFileSync('/home/cfg/sysmachine', 'utf8');
 		file = fs.readFileSync('/home/cfg/sysmachine', 'utf8');
 		config.push(file)
-		var file = fs.readFileSync('/home/cfg/startuptime', 'utf8');
 		file = fs.readFileSync('/home/cfg/startuptime', 'utf8');
 		config.push(file)
 
-		var file = fs.readFileSync('/home/cfg/appname', 'utf8');
 		file = fs.readFileSync('/home/cfg/appname', 'utf8');
 		config.push(file)
-		var file = fs.readFileSync('/home/cfg/appversion', 'utf8');
 		file = fs.readFileSync('/home/cfg/appversion', 'utf8');
 		config.push(file)
 
-		var file = fs.readFileSync('/home/cfg/pppmacdaddress', 'utf8');
 		file = fs.readFileSync('/home/cfg/pppmacdaddress', 'utf8');
-		config.push(file)
-		var file = fs.readFileSync('/home/cfg/pppula', 'utf8');
-		config.push(file)
-		var file = fs.readFileSync('/home/cfg/ppplla', 'utf8');
-		config.push(file)
-		var file = fs.readFileSync('/home/cfg/routeppp', 'utf8');
 		config.push(file)
 		file = fs.readFileSync('/home/cfg/pppula', 'utf8');
 		if (ipaddr.isValid(file.toString())) {
@@ -196,14 +182,6 @@ io.on('connection', function(socket) {
 			config.push("-")
 		}
 
-		var file = fs.readFileSync('/home/cfg/plcula', 'utf8');
-		config.push(file)
-		var file = fs.readFileSync('/home/cfg/plclla', 'utf8');
-		config.push(file)
-		var file = fs.readFileSync('/home/cfg/plcprefix', 'utf8');
-		config.push(file)
-		var file = fs.readFileSync('/home/cfg/routeplc', 'utf8');
-		config.push(file)
 		file = fs.readFileSync('/home/cfg/plcula', 'utf8');
 		if (ipaddr.isValid(file.toString())) {
 			config.push(ipaddr.parse(file.toString()).toNormalizedString())
@@ -229,34 +207,21 @@ io.on('connection', function(socket) {
 			config.push("-")
 		}
 
-		var file = fs.readFileSync('/home/cfg/panid', 'utf8');
 		file = fs.readFileSync('/home/cfg/panid', 'utf8');
 		config.push(file)
-		var file = fs.readFileSync('/home/cfg/secpsk', 'utf8');
 		file = fs.readFileSync('/home/cfg/secpsk', 'utf8');
 		config.push(file)
-		var file = fs.readFileSync('/home/cfg/secgmk', 'utf8');
 		file = fs.readFileSync('/home/cfg/secgmk', 'utf8');
 		config.push(file)
-		var file = fs.readFileSync('/home/cfg/maxhops', 'utf8');
 		file = fs.readFileSync('/home/cfg/maxhops', 'utf8');
 		config.push(file)
-		var file = fs.readFileSync('/home/cfg/maxjoinwaittime', 'utf8');
 		file = fs.readFileSync('/home/cfg/maxjoinwaittime', 'utf8');
 		config.push(file)
 
-		var file = fs.readFileSync('/home/cfg/gprs_en', 'utf8');
 		file = fs.readFileSync('/home/cfg/gprs_en', 'utf8');
 		config.push(file)
-		var file = fs.readFileSync('/home/cfg/sniffer_en', 'utf8');
 		file = fs.readFileSync('/home/cfg/sniffer_en', 'utf8');
 		config.push(file)
-
-
-
-
-
-
 
 		file = fs.readFileSync('/home/cfg/eth0', 'utf8');
 		var ifaces = file.toString().split(';');
