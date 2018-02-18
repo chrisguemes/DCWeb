@@ -35,7 +35,7 @@ var returnRouter = function(io) {
 		form.parse(req);
 
 		form.on('fileBegin', function (name, file){		
-			file.path = "./uploads/"+file.name;
+			file.path = "/home/uploads/"+file.name;
 			console.log('Start upload... ' + file.path);
 			fs.unlink("/home/cfg/fu_en", function (err) {
 			  	if(err) {
@@ -48,7 +48,7 @@ var returnRouter = function(io) {
 		form.on('file', function (name, file){
 			console.log('Uploaded ' + file.name);
 			// Update cfg file to enable FU
-			var filepath = '/home/DCWeb/uploads/' + file.name;
+			var filepath = '/home/uploads/' + file.name;
 			console.log(filepath);
 
 			fs.writeFile("/home/cfg/fu_en", filepath, function(err) {
